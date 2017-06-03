@@ -1,0 +1,204 @@
+html, body, #root, #index {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  line-height: 1.6;
+  min-height: 100%;
+  min-width: 100%;
+  box-sizing: border-box;
+  /*border: 1px solid red;*/
+  display: flex;
+}
+
+.vbox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /*border: 1px solid green;*/
+}
+
+.hbox {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /*border: 1px solid blue;*/
+}
+
+#loginPage {
+  flex: 1;
+}
+
+.pageBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5em;
+  align-content: space-around;
+}
+
+.pageBody>* {
+  flex: 1;
+  width: 100%;
+}
+
+.logo img {
+  width: 60%;
+  height: auto;
+}
+
+.landingButtons {
+  justify-content: center;
+}
+
+.top-center {
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.bottom {
+  justify-content: flex-end;
+}
+
+.top {
+  justify-content: flex-start;
+}
+
+.bottom-center {
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.center-center {
+  justify-content: center;
+  align-items: center;
+}
+
+hr {
+  width: 100%;
+  flex: 0;
+}
+
+button, input {
+  margin: 0.5em 0;
+  font-size: 1.25rem;
+  padding: 0.5em;
+  border: 1px solid black;
+}
+
+a.button {
+  margin: 0.5em 0;
+  font-size: 1.25rem;
+  padding: 0.5em;
+  border: 1px solid black;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+
+  justify-content: space-between;
+}
+
+a.button > span.icon {
+  background-color: white;
+  max-width: 36px;
+  min-height: 36px;
+  height: auto;
+  /*border: 1px solid yellow;*/
+}
+
+span.icon.facebook{
+  mask: url("../img/icons/facebook-box.svg");
+  mask-size: cover;
+}
+
+span.icon.google{
+  mask: url("../img/icons/google.svg");
+  mask-size: cover;
+}
+
+a.button > span{
+  flex: 6;
+}
+
+a.button.primary {
+  background-color: green;
+  color: white;
+}
+
+a.button.facebook {
+  background-color: #4267B2;
+  color: white;
+}
+
+a.button.google {
+  background-color: red;
+  color: white;
+}
+
+#navigationBar {
+  background-color: #F6F6F6;
+  justify-content: space-around;
+}
+
+#navigationBar img {
+  min-width: 36px;
+  text-align: center;
+  flex: 1;
+}
+
+#navigationBar h1 {
+  font-size: 1.3em;
+  flex: 3;
+  text-align: center;
+  white-space: nowrap;
+}
+
+#loginForm {
+  flex: 1.5;
+}
+
+#loginForm a {
+  display: block;
+  text-align: center;
+}
+
+form{
+  padding: 0;
+  margin: 0;
+}
+
+
+/*#root{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid red;
+  background-color: blue;
+}*/
+
+
+/*#loginPage{
+  display: flex;
+  flex-direction: column;
+}
+
+.logo{
+  width: 50%;
+  border: 1px solid red;
+  height: 200px;
+  margin: 6em auto 6em auto;
+}
+
+
+
+#navigationBar{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: #F5F5F5;
+  margin: 0;
+  height: 4em;
+}
+
+*/

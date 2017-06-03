@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExerciseTile renders 1`] = `
+<styled.div>
+  <styled.div
+    className="exercise"
+    style={
+      Object {
+        "backgroundImage": "url(undefined)",
+      }
+    }
+  />
+  <h4 />
+</styled.div>
+`;

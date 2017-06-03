@@ -1,40 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import LandingPage from './js/landingPage';
-import LoginPage from './js/loginPage';
+import App from './js/App';
 import './css/index.css';
 
-class WeekStrong extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loggedIn: false
-    };
+const root = document.getElementById('root');
 
-    this.handleLogin = this.handleLogin.bind(this);
-  }
+ReactDOM.render(<App />, root);
 
-  render() {
-    const landingPage = () => <LandingPage loggedIn={this.state.loggedIn} />;
-    const loginPage = () => <LoginPage onLogin={this.handleLogin} />;
-
-    return (
-      <Router>
-        <div id="index" className="vbox">
-          <Route exact path="/" render={landingPage} />
-          <Route exact path="/login" render={loginPage} />
-        </div>
-      </Router>
-    );
-  }
-
-  handleLogin(e) {
-    e.preventDefault();
-    this.setState({ loggedIn: true });
-    //this.props.history.push("/");
-    console.log(Object.keys(this.state));
-  }
+// This enables hot reload in development
+if (module.hot) {
+  module.hot.accept('./js/App', () => {
+    const NextApp = require('./js/App').default;
+    ReactDOM.render(<NextApp />, root);
+  });
 }
-
-ReactDOM.render(<WeekStrong />, document.getElementById('root'));

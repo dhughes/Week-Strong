@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WeekdayIndicator renders 1`] = `
+<styled.div>
+  Test 123
+</styled.div>
+`;
