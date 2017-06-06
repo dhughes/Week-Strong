@@ -5,13 +5,13 @@ const Container = styled.div`
   flex: 1;
   display: flex;
   background-color:  ${props => props.theme.font};
-  height: 2em;
+  height: 2rem;
 `;
 
 const Progress = styled.div`
   background-color:  ${props => props.theme.header};
   width: ${props => props.progress}%;
-  min-height: 2em;
+  min-height: 2rem;
   content: '.';
   display: hidden;
 `;

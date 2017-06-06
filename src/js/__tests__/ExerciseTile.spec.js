@@ -60,5 +60,5 @@ test('ExerciseTile shows pullups image', () => {
 
 test('ExerciseTile shows x when isSelected', () => {
   const component = mount(<ExerciseTile label="Pushups" src="/img/pullups.jpg" isSelected count={100} />);
-  expect(component.find('button').length).toEqual(1);
+  expect(component.find('.remove').length).toEqual(1);
 });

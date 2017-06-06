@@ -6,7 +6,7 @@ const Container = styled.button`
   text-align: center;
   box-sizing: border-box;
   color: ${props => props.theme.font};
-  font-size: 1em;
+  font-size: 1rem;
   background-color: ${props => props.theme.background};
   border: 0px;
 

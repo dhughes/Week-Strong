@@ -4,17 +4,12 @@ import { Hbox } from './Box';
 import styled from 'styled-components';
 
 const Container = styled(Hbox)`
-  height: 3em;
-  line-height: 3em;
+  line-height: 3rem;
   color: ${props => props.theme.font};;
 
   & > * {
-    height: 2em;
-    width: 2em;
-    margin: 0.2em;
-    text-align: center;
-    margin: 0px;
-    padding: 0px;
+    height: 3rem;
+    width: 3rem;
   }
 
   & > h2{

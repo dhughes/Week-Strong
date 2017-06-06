@@ -8,10 +8,12 @@ import Day from './Day';
 import ProgressBar from './ProgressBar';
 import DifficultyGauge from './DifficultyGauge';
 import Stepper from './Stepper';
+import LabelValue from './LabelValue';
 
 const Root = styled.div`
   width: 100vw;
   height: 100vh;
+  font-size: 1.2em;
   background-color: ${props => props.theme.background};
 `;
 
@@ -27,6 +29,7 @@ class App extends Component {
       <ThemeProvider theme={theme}>
         <Root>
           <Vbox>
+            <LabelValue label="Streak" value="8 days" />
             <Stepper
               value={this.state.testValue}
               label="Pushups"

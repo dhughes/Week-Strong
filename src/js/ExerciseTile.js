@@ -22,10 +22,10 @@ const SelectableImageHbox = styled(Hbox)`
     justify-content: center;
     align-items: center;
     vertical-align: middle;
-    font-size: 2em;
+    font-size: 2rem;
     font-weight: bold;
     color: green;
-    padding: 0.25em;
+    padding: 0.25rem;
     background-color: rgba(255,255,255,0.75);
 
     & > img {
@@ -37,18 +37,18 @@ const SelectableImageHbox = styled(Hbox)`
 `;
 
 const Selected = styled(Hbox)`
-  height: 3em;
-  margin-bottom: -3em;
-  line-height: 3em;
+  height: 3rem;
+  margin-bottom: -3rem;
+  line-height: 3rem;
   background-color: rgba(238, 235, 211, 0.9);
   color: ${props => props.theme.positive};;
   z-index: 1;
   justify-content: flex-start;
 
   & > * {
-    height: 2em;
-    width: 2em;
-    margin: 0.2em;
+    height: 3rem;
+    width: 2rem;
+    margin: 0.2rem;
   }
 
   & > h2{
@@ -60,26 +60,15 @@ const Selected = styled(Hbox)`
     fill: currentColor;
   }
 
-  & > button{
-    padding: 0;
-    fill: ${props => props.theme.warning};;
-    margin: 0;
-    padding: 0;
-    height: 4.5em;
-    width: 4.5em;
-    z-index: 2;
-  }
-
-  & > .remove {
-    height: 3em;
-    width: 3em;
+  & > .remove{
+    fill: ${props => props.theme.warning};
   }
 `;
 
 const Label = styled(Hbox)`
-  height: 3em;
-  margin-top: -3em;
-  line-height: 3em;
+  height: 3rem;
+  margin-top: -3rem;
+  line-height: 3rem;
   background-color: rgba(57, 62, 65, 0.75);
   color: ${props => props.theme.font};;
 `;
@@ -97,9 +86,7 @@ class ExerciseTile extends Component {
           ? <Selected>
               <Checkmark />
               <h2>{this.props.count}</h2>
-              <button title="Remove" onClick={this.onRemove}>
-                <Close className="remove" />
-              </button>
+              <Close className="remove" onClick={this.onRemove} />
             </Selected>
           : null}
         <SelectableImageHbox
