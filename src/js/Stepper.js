@@ -26,9 +26,9 @@ const Container = styled(Hbox)`
 const Stepper = props => {
   return (
     <Container>
-      <Minus onClick={props.onStepDown} />
+      <Minus onClick={props.onStepDownClick} />
       <h2>{`${props.value} ${props.label}`.trim()}</h2>
-      <Plus onClick={props.onStepUp} />
+      <Plus onClick={props.onStepUpClick} />
     </Container>
   );
 };
@@ -36,8 +36,8 @@ const Stepper = props => {
 Stepper.defaultProps = {
   value: 50,
   label: '',
-  onStepUp: () => {},
-  onStepDown: () => {}
+  onStepUpClick: () => {},
+  onStepDownClick: () => {}
 };
 
 export default Stepper;

@@ -81,12 +81,12 @@ class ExerciseTile extends Component {
   };
   render() {
     return (
-      <CenteredVbox onClick={this.props.onSelect}>
+      <CenteredVbox onClick={this.props.onSelectClick}>
         {this.props.isSelected
           ? <Selected>
               <Checkmark />
               <h2>{this.props.count}</h2>
-              <Close className="remove" onClick={this.onRemove} />
+              <Close className="remove" onClick={this.onRemoveClick} />
             </Selected>
           : null}
         <SelectableImageHbox
@@ -109,8 +109,8 @@ class ExerciseTile extends Component {
 
 ExerciseTile.defaultProps = {
   isSelected: false,
-  onSelect: () => {},
-  onRemove: () => {}
+  onSelectClick: () => {},
+  onRemoveClick: () => {}
 };
 
 export default ExerciseTile;

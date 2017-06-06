@@ -30,7 +30,7 @@ test('Stepper displays label', () => {
 
 test('Stepper steps up', () => {
   const onButtonClick = sinon.spy();
-  const component = shallow(<Stepper value="100" label="widgets" onStepUp={onButtonClick} />);
+  const component = shallow(<Stepper value="100" label="widgets" onStepUpClick={onButtonClick} />);
 
   // trigger click events
   component.find('Plus').simulate('click');
@@ -39,7 +39,7 @@ test('Stepper steps up', () => {
 
 test('Stepper steps down', () => {
   const onButtonClick = sinon.spy();
-  const component = shallow(<Stepper value="100" label="widgets" onStepDown={onButtonClick} />);
+  const component = shallow(<Stepper value="100" label="widgets" onStepDownClick={onButtonClick} />);
 
   // trigger click events
   component.find('Minus').simulate('click');
