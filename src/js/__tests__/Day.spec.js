@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import Day from '../Day';
 
-xtest('Day renders', () => {
+test('Day renders', () => {
   const component = shallow(<Day dayOfWeek={2} />);
   expect(component).toMatchSnapshot();
 });

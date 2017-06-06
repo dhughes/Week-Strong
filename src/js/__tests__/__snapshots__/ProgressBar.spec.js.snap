@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProgressBar renders 1`] = `
+<styled.div>
+  <styled.div
+    progress={75}
+  />
+</styled.div>
+`;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function LandingPage(props){
+function NavigationBar(props) {
   return (
     <div id="navigationBar" className="hbox">
       <img src={props.left} alt={props.leftAlt} onClick={props.onLeftClick} />
@@ -10,4 +10,4 @@ function LandingPage(props){
   );
 }
 
-export default LandingPage
+export default NavigationBar;

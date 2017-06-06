@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavigationBar renders 1`] = `
+<div
+  className="hbox"
+  id="navigationBar"
+>
+  <img />
+  <h1 />
+  <img />
+</div>
+`;

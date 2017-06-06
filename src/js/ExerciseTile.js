@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import { Vbox, Hbox } from './Box';
-import checkmark from '../img/check-circle-outline.svg';
+import { Checkmark, Close } from './Icon';
 
-const CenteredVbox = Vbox.extend`
+const CenteredVbox = styled(Vbox)`
   & > * {
      margin: 0;
      width: 100%;
@@ -10,7 +11,7 @@ const CenteredVbox = Vbox.extend`
    }
 `;
 
-const SelectableImageHbox = Hbox.extend`
+const SelectableImageHbox = styled(Hbox)`
   background-size: cover;
   background-position: 50% 100%;
   min-height: 200px;
@@ -35,41 +36,94 @@ const SelectableImageHbox = Hbox.extend`
   }
 `;
 
-class ExerciseTile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      dimensions: {
-        width: -1,
-        height: -1
-      }
-    };
+const Selected = styled(Hbox)`
+  height: 3em;
+  margin-bottom: -3em;
+  line-height: 3em;
+  background-color: rgba(238, 235, 211, 0.9);
+  color: ${props => props.theme.positive};;
+  z-index: 1;
+  justify-content: flex-start;
+
+  & > * {
+    height: 2em;
+    width: 2em;
+    margin: 0.2em;
   }
+
+  & > h2{
+    text-align: left;
+    flex-grow: 1000;
+  }
+
+  & > svg {
+    fill: currentColor;
+  }
+
+  & > button{
+    padding: 0;
+    fill: ${props => props.theme.warning};;
+    margin: 0;
+    padding: 0;
+    height: 4.5em;
+    width: 4.5em;
+    z-index: 2;
+  }
+
+  & > .remove {
+    height: 3em;
+    width: 3em;
+  }
+`;
+
+const Label = styled(Hbox)`
+  height: 3em;
+  margin-top: -3em;
+  line-height: 3em;
+  background-color: rgba(57, 62, 65, 0.75);
+  color: ${props => props.theme.font};;
+`;
+
+class ExerciseTile extends Component {
+  onRemove = e => {
+    e.stopPropagation();
+    e.preventDefault();
+    this.props.onRemove(e);
+  };
   render() {
     return (
-      <CenteredVbox>
+      <CenteredVbox onClick={this.props.onSelect}>
+        {this.props.isSelected
+          ? <Selected>
+              <Checkmark />
+              <h2>{this.props.count}</h2>
+              <button title="Remove" onClick={this.onRemove}>
+                <Close className="remove" />
+              </button>
+            </Selected>
+          : null}
         <SelectableImageHbox
           className="exercise"
           style={{
             backgroundImage: `url(${this.props.src})`
           }}
           title={this.props.label}
-        >
-          {this.props.selected
-            ? <div className="selected">
-                <img src={checkmark} alt="Selected" />
-                <span>{this.props.count}</span>
-              </div>
-            : null}
-        </SelectableImageHbox>
-        <h4>{this.props.label}</h4>
+        />
+        <Label>
+          <h4>
+            {this.props.label}
+          </h4>
+        </Label>
+
       </CenteredVbox>
     );
   }
 }
 
 ExerciseTile.defaultProps = {
-  selected: false
+  isSelected: false,
+  onSelect: () => {},
+  onRemove: () => {}
 };
 
 export default ExerciseTile;

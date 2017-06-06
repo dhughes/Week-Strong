@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import WeekdayIndicator from '../WeekdayIndicator';
 
-xtest('WeekdayIndicator renders', () => {
+test('WeekdayIndicator renders', () => {
   const component = shallow(<WeekdayIndicator />);
   expect(component).toMatchSnapshot();
 });

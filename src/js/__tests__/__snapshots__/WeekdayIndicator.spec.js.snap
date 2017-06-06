@@ -2,6 +2,47 @@
 
 exports[`WeekdayIndicator renders 1`] = `
 <styled.div>
-  Test 123
+  <Day
+    dayOfWeek={0}
+    isSelected={false}
+    onClick={[Function]}
+    wasMissed={false}
+  />
+  <Day
+    dayOfWeek={1}
+    isSelected={false}
+    onClick={[Function]}
+    wasMissed={false}
+  />
+  <Day
+    dayOfWeek={2}
+    isSelected={false}
+    onClick={[Function]}
+    wasMissed={false}
+  />
+  <Day
+    dayOfWeek={3}
+    isSelected={false}
+    onClick={[Function]}
+    wasMissed={false}
+  />
+  <Day
+    dayOfWeek={4}
+    isSelected={false}
+    onClick={[Function]}
+    wasMissed={false}
+  />
+  <Day
+    dayOfWeek={5}
+    isSelected={false}
+    onClick={[Function]}
+    wasMissed={false}
+  />
+  <Day
+    dayOfWeek={6}
+    isSelected={false}
+    onClick={[Function]}
+    wasMissed={false}
+  />
 </styled.div>
 `;

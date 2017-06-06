@@ -5,24 +5,28 @@ const Container = styled.button`
   flex: 1;
   text-align: center;
   box-sizing: border-box;
-  color: #EEEBD3;
+  color: ${props => props.theme.font};
   font-size: 1em;
+  background-color: ${props => props.theme.background};
+  border: 0px;
 
   ${props => props.isSelected && css`
-      border: 4px solid #69995D;
-      background-color: #69995D;
-      color: #393E41;
+      border: 1px solid ${props => props.theme.positive};
+      background-color: ${props => props.theme.positive};
+      color: ${props => props.theme.background};;
   `};
 
   ${props => props.wasMissed && css`
-      border: 4px solid #B02E0C;
-      background-color: #B02E0C;
-      color: #EEEBD3;
+      border: 1px solid ${props => props.theme.warning};
+      background-color: ${props => props.theme.warning};
+      color: ${props => props.theme.font};
   `};
 
   ${props => props.isToday && css`
-      border: 4px solid #EEEBD3;
+      border: 1px solid ${props => props.theme.font};
       font-weight: bold;
+      box-shadow: 0 0 0.5em ${props => props.theme.font};
+      z-index: 1
   `};
 
 `;

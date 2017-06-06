@@ -1,7 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Day renders 1`] = `
-<div>
-  Day
-</div>
+<styled.button
+  isSelected={false}
+  isToday={false}
+  onClick={[Function]}
+  value={2}
+  wasMissed={false}
+>
+  T
+</styled.button>
 `;

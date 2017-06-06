@@ -1,8 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ExerciseTile renders 1`] = `
-<styled.div>
-  <styled.div
+<Styled(styled.div)
+  onClick={[Function]}
+>
+  <Styled(styled.div)
     className="exercise"
     style={
       Object {
@@ -10,6 +12,8 @@ exports[`ExerciseTile renders 1`] = `
       }
     }
   />
-  <h4 />
-</styled.div>
+  <Styled(styled.div)>
+    <h4 />
+  </Styled(styled.div)>
+</Styled(styled.div)>
 `;
