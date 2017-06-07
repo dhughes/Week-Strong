@@ -1,15 +1,19 @@
 import styled from 'styled-components';
 
+//
+//
+
 const Button = styled.button`
-  font-size: 2rem;
-  height: 3rem;
-  text-align: center;
+  padding: 0.25em 1em;
   text-decoration: none;
+  line-height: 2.5rem;
+  font-size: 1.4rem;
+  text-align: center;
   border: 0;
   background-color: ${props => props.theme.font};
   color: black;
   margin: 0.5rem auto;
-
+  border: 0px;
 
   &.default{
     background-color: ${props => props.theme.positive};

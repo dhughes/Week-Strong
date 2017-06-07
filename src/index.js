@@ -9,8 +9,7 @@ ReactDOM.render(<App />, root);
 
 // This enables hot reload in development
 if (module.hot) {
-  module.hot.accept('./js/App', () => {
-    const NextApp = require('./js/App').default;
-    ReactDOM.render(<NextApp />, root);
-  });
+  module.hot.accept();
+  const NextApp = require('./js/App').default;
+  ReactDOM.render(<NextApp />, root);
 }

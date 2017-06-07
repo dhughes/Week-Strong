@@ -3,7 +3,11 @@ import { Vbox } from './Box';
 
 const Body = styled(Vbox)`
   padding: 1em;
-  flex-grow: 1000;
+  height: 100vh;
 `;
+
+Body.defaultProps = {
+  justifyContent: 'default'
+};
 
 export default Body;

@@ -1,6 +1,11 @@
 import React from 'react';
 import { Hbox } from './Box';
 import Day from './Day';
+import styled from 'styled-components';
+
+const Container = styled(Hbox)`
+  margin: 0.5em auto 1em auto;
+`;
 
 const WeekdayIndicator = props => {
   let days = [];
@@ -17,16 +22,17 @@ const WeekdayIndicator = props => {
     );
   }
   return (
-    <Hbox>
+    <Container justifyContent="space-between">
       {days}
-    </Hbox>
+    </Container>
   );
 };
 
 WeekdayIndicator.defaultProps = {
   selected: [],
   missed: [],
-  onDayClick: () => {}
+  onDayClick: () => {},
+  today: new Date().getDay()
 };
 
 export default WeekdayIndicator;

@@ -1,18 +1,19 @@
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { Hbox } from './Box';
 
-const Button = styled(Link)`
-  display: flex;
-  flex-direction: row;
-  font-size: 1.75rem;
-  justify-content: center;
-  align-items: center;
+const StyledButton = styled(Link)`
+  padding: 0.25em 1em;
   text-decoration: none;
+  line-height: 2.5rem;
+  font-size: 1.4rem;
+  text-align: center;
   border: 0;
   background-color: ${props => props.theme.font};
   color: black;
   margin: 0.5rem auto;
-  height: 3rem;
+  border: 0px;
 
   &.default{
     background-color: ${props => props.theme.positive};
@@ -28,20 +29,25 @@ const Button = styled(Link)`
     color: white;
   }
 
-  & > svg {
+  & svg {
+    height: 2.5rem;
+    width: 2.5rem;
     fill: currentColor;
   }
 
-  & > * {
-    height: 2rem;
-    width: 2rem;
-    margin: auto 0.5rem;
-  }
-
-  & > div {
-    line-height: 2rem;
-    flex-grow: 1000;
-  }
 `;
 
-export default Button;
+const LinkButton = props => (
+  <StyledButton {...props}>
+    <Hbox>
+      {props.icon}
+      <div>{props.label}</div>
+    </Hbox>
+  </StyledButton>
+);
+
+LinkButton.defaultProps = {
+  icon: null
+};
+
+export default LinkButton;

@@ -2,30 +2,38 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 const Container = styled.button`
-  flex: 1;
   text-align: center;
-  box-sizing: border-box;
+  width: 2.5em;
+  height: 2.5em;
+
+  line-height: 2.5rem;
+  font-size: 1.2rem;
   color: ${props => props.theme.font};
-  font-size: 1rem;
+
   background-color: ${props => props.theme.background};
-  border: 0px;
+  border: 3px solid ${props => props.theme.font};
+
+  &:focus {
+    z-index: 2;
+  }
 
   ${props => props.isSelected && css`
-      border: 1px solid ${props => props.theme.positive};
+      ${/* border: 3px solid ${props => props.theme.positive}; */ ''}
       background-color: ${props => props.theme.positive};
       color: ${props => props.theme.background};;
   `};
 
   ${props => props.wasMissed && css`
-      border: 1px solid ${props => props.theme.warning};
+      ${/* border: 3px solid ${props => props.theme.warning}; */ ''}
       background-color: ${props => props.theme.warning};
       color: ${props => props.theme.font};
   `};
 
   ${props => props.isToday && css`
-      border: 1px solid ${props => props.theme.font};
+      ${/* border: 3px solid ${props => props.theme.font}; */ ''}
       font-weight: bold;
-      box-shadow: 0 0 0.5em ${props => props.theme.font};
+      border: 3px solid ${props => props.theme.header};
+      box-shadow: 0px 0px 0px 3px ${props => props.theme.header};
       z-index: 1
   `};
 

@@ -7,14 +7,18 @@ import LoggedOutLandingPage from './LoggedOutLandingPage';
 import LandingPage from './LandingPage';
 import LoginPage from './LoginPage';
 
-console.log(history);
-
 const Root = styled(Vbox)`
   width: 100vw;
   height: 100vh;
-  font-size: 1.2em;
+  font-size: 18pt;
   background-color: ${props => props.theme.background};
   align-items: flex-start;
+  color: ${props => props.theme.font};
+  text-align: center;
+
+  & *{
+    box-sizing: border-box;
+  }
 
   & *:focus {
     outline: 4px solid ${props => props.theme.header};
@@ -25,7 +29,15 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false
+      loggedIn: true,
+      user: {
+        name: 'Doug Hughes',
+        email: 'doug@doughughes.net'
+      },
+      program: {
+        days: [1, 4, 6],
+        missed: [1]
+      }
     };
   }
   handleLoginSubmit = (username, password) => {
@@ -40,7 +52,11 @@ class App extends Component {
           <Root>
             <Switch>
               {this.state.loggedIn
-                ? <Route exact path="/" component={() => <LandingPage />} />
+                ? <Route
+                    exact
+                    path="/"
+                    component={() => <LandingPage user={{ ...this.state.user }} program={{ ...this.state.program }} />}
+                  />
                 : <Route exact path="/" component={() => <LoggedOutLandingPage />} />}
               <Route exact path="/login" component={() => <LoginPage onLoginSubmit={this.handleLoginSubmit} />} />
             </Switch>

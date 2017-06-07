@@ -1,43 +1,17 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import Page from './Page';
+import { Vbox, Hbox } from './Box';
 import Body from './Body';
-import { Hbox } from './Box';
 import { ChevronLeft, Facebook, Google } from './Icon';
 import { Link } from 'react-router-dom';
 import LinkButton from './LinkButton';
 import Button from './Button';
+import NavigationBar from './NavigationBar';
+import Input from './Input';
 
 const TextLink = styled(Link)`
   color: ${props => props.theme.font};
   text-align: center;
-`;
-
-const NavigationBar = styled(Hbox)`
-  background-color: ${props => props.theme.header};
-  min-height: 4rem;
-  line-height: 4rem;
-  color: ${props => props.theme.background};
-
-  & > * {
-    height: 4rem;
-    width: 4rem;
-    flex-grow: 0;
-  }
-
-  & > h1{
-    font-size: 1.4rem;
-    text-align: center;
-    flex-grow: 1000;
-  }
-
-  & > a {
-    color: ${props => props.theme.background};
-  }
-
-  & svg {
-    fill: currentColor;
-  }
 `;
 
 const SectionBreak = styled.hr`
@@ -47,18 +21,6 @@ const SectionBreak = styled.hr`
   margin: 2rem auto;
 `;
 
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-
-  & > input, button {
-    flex: 1;
-    font-size: 1.75rem;
-    text-decoration: none;
-    margin: 0.5rem 0;
-  }
-`;
-
 class LoginPage extends Component {
   constructor(props) {
     super(props);
@@ -66,7 +28,6 @@ class LoginPage extends Component {
       username: '',
       password: ''
     };
-    console.log('LoginPage', props);
   }
   handleLoginSubmit = e => {
     e.preventDefault();
@@ -79,43 +40,35 @@ class LoginPage extends Component {
   };
   render() {
     return (
-      <Page>
-        <NavigationBar>
-          <Link to="/"><ChevronLeft /></Link>
-          <h1>Sign In To Week-Strong</h1>
-          <div />
-        </NavigationBar>
-        <Body>
-          <LinkButton to="/facebook" className="facebook">
-            <Facebook />
-            <div>Sign In With Facebook</div>
-          </LinkButton>
-          <LinkButton to="/google" className="google">
-            <Google />
-            <div>Sign In With Google</div>
-          </LinkButton>
+      <Vbox>
+        <NavigationBar leftTo="/" leftIcon={<ChevronLeft />} title="Sign In To Week-Strong" />
+        <Body justifyContent="center">
+          <LinkButton to="/facebook" icon={<Facebook />} label="Sign In With Facebook" className="facebook" />
+          <LinkButton to="/google" icon={<Google />} label="Sign In With Google" className="google" />
           <SectionBreak />
-          <Form onSubmit={this.handleLoginSubmit}>
-            <input
-              type="text"
-              name="username"
-              value={this.state.username}
-              onChange={this.handleChange}
-              placeholder="Email"
-            />
-            <input
-              type="password"
-              name="password"
-              value={this.state.password}
-              onChange={this.handleChange}
-              placeholder="Password"
-            />
-            <Button className="default">Login</Button>
-          </Form>
-          <TextLink to="/forgotPassword">Forgot your password?</TextLink>
+          <form onSubmit={this.handleLoginSubmit}>
+            <Vbox>
+              <Input
+                type="text"
+                name="username"
+                value={this.state.username}
+                onChange={this.handleChange}
+                placeholder="Email"
+              />
+              <Input
+                type="password"
+                name="password"
+                value={this.state.password}
+                onChange={this.handleChange}
+                placeholder="Password"
+              />
+              <Button className="default">Login</Button>
+              <TextLink to="/forgotPassword">Forgot your password?</TextLink>
+            </Vbox>
+          </form>
         </Body>
 
-      </Page>
+      </Vbox>
     );
   }
 }
