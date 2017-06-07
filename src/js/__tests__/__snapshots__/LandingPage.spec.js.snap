@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Landing renders 1`] = `
+exports[`LandingPage renders 1`] = `
 <div>
   Logged in
 </div>

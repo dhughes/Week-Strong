@@ -24,4 +24,22 @@ const Plus = props => (
   </svg>
 );
 
-export { Checkmark, Close, Minus, Plus };
+const ChevronLeft = props => (
+  <svg viewBox="0 0 24 24" {...props}>
+    <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
+  </svg>
+);
+
+const Facebook = props => (
+  <svg viewBox="0 0 24 24" {...props}>
+    <path d="M5,3H19C20.1,3 21,3.9 21,5V19C21,20.1 20.1,21 19,21H5C3.9,21 3,20.1 3,19V5C3,3.9 3.9,3 5,3M18,5H15.5C13.57,5 12,6.57 12,8.5V11H10V14H12V21H15V14H18V11H15V9C15,8.45 15.45,8 16,8H18V5Z" />
+  </svg>
+);
+
+const Google = props => (
+  <svg viewBox="0 0 24 24" {...props}>
+    <path d="M21.35,11.1H12.18V13.83H18.69C18.36,17.64 15.19,19.27 12.19,19.27C8.36,19.27 5,16.25 5,12C5,7.9 8.2,4.73 12.2,4.73C15.29,4.73 17.1,6.7 17.1,6.7L19,4.72C19,4.72 16.56,2 12.1,2C6.42,2 2.03,6.8 2.03,12C2.03,17.05 6.16,22 12.25,22C17.6,22 21.5,18.33 21.5,12.91C21.5,11.76 21.35,11.1 21.35,11.1V11.1Z" />
+  </svg>
+);
+
+export { Checkmark, Close, Minus, Plus, ChevronLeft, Facebook, Google };
