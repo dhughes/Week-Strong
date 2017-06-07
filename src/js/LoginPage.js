@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Vbox, Hbox } from './Box';
+import { Vbox } from './Box';
 import Body from './Body';
 import { ChevronLeft, Facebook, Google } from './Icon';
 import { Link } from 'react-router-dom';
