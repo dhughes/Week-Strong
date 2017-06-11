@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Vbox } from './Box';
 import styled from 'styled-components';
+import theme from './theme';
 
 const Wrapper = Vbox.extend`
   & > * {
@@ -15,8 +16,8 @@ const Timer = styled.div`
   line-height: 1;
 `;
 
-const AlertTimer = Timer.extend`
-  color: ${props => props.theme.warning}
+const AlertTimer = styled(Timer)`
+  color: ${theme.primary}
 `;
 
 class CountdownTimer extends Component {

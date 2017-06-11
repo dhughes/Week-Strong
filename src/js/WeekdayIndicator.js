@@ -4,17 +4,22 @@ import Day from './Day';
 import styled from 'styled-components';
 
 const Container = styled(Hbox)`
-  margin: 0.5em auto 1em auto;
+  margin: 0.1em auto;
 `;
 
 const WeekdayIndicator = props => {
   let days = [];
   for (let x = 0; x <= 6; x++) {
+    // did the user workout on this day?
+    const workedOut = props.workedOutDays.includes(x);
+    console.log(props.today);
+    const wasMissed = props.selected.includes(x) && !props.workedOutDays.includes(x);
     days.push(
       <Day
         key={x}
-        isSelected={props.selected.includes(x)}
-        wasMissed={props.missed.includes(x)}
+        inCurrentWeek={props.isCurrentWeek}
+        isWorkoutDay={props.selected.includes(x) || workedOut}
+        wasMissed={wasMissed}
         dayOfWeek={x}
         today={props.today}
         onClick={props.onDayClick}
@@ -30,9 +35,9 @@ const WeekdayIndicator = props => {
 
 WeekdayIndicator.defaultProps = {
   selected: [],
-  missed: [],
   onDayClick: () => {},
-  today: new Date().getDay()
+  today: undefined,
+  isCurrentWeek: false
 };
 
 export default WeekdayIndicator;

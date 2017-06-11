@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-
-//
-//
+import theme from './theme';
 
 const Button = styled.button`
   padding: 0.25em 1em;
@@ -10,13 +8,14 @@ const Button = styled.button`
   font-size: 1.4rem;
   text-align: center;
   border: 0;
-  background-color: ${props => props.theme.font};
+  background-color: ${theme.secondary};
   color: black;
   margin: 0.5rem auto;
   border: 0px;
 
   &.default{
-    background-color: ${props => props.theme.positive};
+    background-color: ${theme.primaryAction};
+    color: ${theme.primaryText.negate()};
   }
 
   &.facebook{

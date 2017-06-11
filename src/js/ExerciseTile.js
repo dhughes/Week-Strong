@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Vbox, Hbox } from './Box';
 import { Checkmark, Close } from './Icon';
+import theme from './theme';
 
 const CenteredVbox = styled(Vbox)`
+  width: 50vw;
+  height: 50vw;
+  padding: 0.5em;
+
   & > * {
      margin: 0;
      width: 100%;
@@ -41,7 +46,7 @@ const Selected = styled(Hbox)`
   margin-bottom: -3rem;
   line-height: 3rem;
   background-color: rgba(238, 235, 211, 0.9);
-  color: ${props => props.theme.positive};;
+  color: ${theme.positive};;
   z-index: 1;
   justify-content: flex-start;
 
@@ -61,7 +66,7 @@ const Selected = styled(Hbox)`
   }
 
   & > .remove{
-    fill: ${props => props.theme.warning};
+    fill: ${theme.negative};
   }
 `;
 
@@ -70,7 +75,7 @@ const Label = styled(Hbox)`
   margin-top: -3rem;
   line-height: 3rem;
   background-color: rgba(57, 62, 65, 0.75);
-  color: ${props => props.theme.font};;
+  color: ${theme.primaryText};
 `;
 
 class ExerciseTile extends Component {
@@ -80,15 +85,16 @@ class ExerciseTile extends Component {
     this.props.onRemove(e);
   };
   render() {
+    console.log(this.props);
     return (
       <CenteredVbox onClick={this.props.onSelectClick}>
         {this.props.isSelected
           ? <Selected>
-              <Checkmark />
-              <h2>{this.props.count}</h2>
-              <Close className="remove" onClick={this.onRemoveClick} />
-            </Selected>
-          : null}
+            <Checkmark />
+            <h2>{this.props.count}</h2>
+            <Close className="remove" onClick={this.onRemoveClick} />
+          </Selected>
+        : null}
         <SelectableImageHbox
           className="exercise"
           style={{

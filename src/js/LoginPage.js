@@ -8,15 +8,16 @@ import LinkButton from './LinkButton';
 import Button from './Button';
 import NavigationBar from './NavigationBar';
 import Input from './Input';
+import theme from './theme';
 
 const TextLink = styled(Link)`
-  color: ${props => props.theme.font};
+  color: currentColor;
   text-align: center;
 `;
 
 const SectionBreak = styled.hr`
-  height: 2px;
-  background-color: ${props => props.theme.font};
+  height: 1px;
+  background-color: ${theme.separator};
   border: 0;
   margin: 2rem auto;
 `;

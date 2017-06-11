@@ -2,10 +2,11 @@ import React from 'react';
 import { Minus, Plus } from './Icon';
 import { Hbox } from './Box';
 import styled from 'styled-components';
+import theme from './theme';
 
 const Container = styled(Hbox)`
   line-height: 3rem;
-  color: ${props => props.theme.font};;
+  color: ${theme.primaryText};
 
   & > * {
     height: 3rem;

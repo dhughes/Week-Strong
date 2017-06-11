@@ -1,62 +1,58 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import theme from './theme';
 
 const Container = styled.button`
   text-align: center;
-  width: 2.5em;
-  height: 2.5em;
+  font-size: 1.2rem;
+  width: 2.5rem;
+
+  color: ${theme.primaryText};
+  border: 1px solid ${theme.primaryText};
+  background-color: ${theme.background};
 
   line-height: 2.5rem;
-  font-size: 1.2rem;
-  color: ${props => props.theme.font};
+  height: 2.5rem;
+  padding: 0;
+  margin: auto 0.25rem 0.25rem 0.25rem;
 
-  background-color: ${props => props.theme.background};
-  border: 3px solid ${props => props.theme.font};
-
-  &:focus {
-    z-index: 2;
-  }
-
-  ${props => props.isSelected && css`
-      ${/* border: 3px solid ${props => props.theme.positive}; */ ''}
-      background-color: ${props => props.theme.positive};
-      color: ${props => props.theme.background};;
+  ${props => !props.inProgram && css`
+    opacity: 0.25;
   `};
 
-  ${props => props.wasMissed && css`
-      ${/* border: 3px solid ${props => props.theme.warning}; */ ''}
-      background-color: ${props => props.theme.warning};
-      color: ${props => props.theme.font};
+  ${props => props.day && css`
+    background-color: ${theme.positive};
+    color: ${theme.primaryText.negate()};
   `};
 
-  ${props => props.isToday && css`
-      ${/* border: 3px solid ${props => props.theme.font}; */ ''}
-      font-weight: bold;
-      border: 3px solid ${props => props.theme.header};
-      box-shadow: 0px 0px 0px 3px ${props => props.theme.header};
-      z-index: 1
+  ${props => props.restored !== undefined && css`
+    background-color: ${theme.negative};
+    color: ${theme.primaryText.negate()};
   `};
+
+  ${props => props.date.getTime() === props.today.getTime() && css`
+    font-weight: bold;
+    border: 2px solid ${theme.primaryText};
+    box-shadow: 0px 0px 0px 2px ${theme.primaryText};
+    z-index: 1;
+  `}
 
 `;
 
 const Day = props => {
   return (
-    <Container
-      isToday={props.dayOfWeek === props.today}
-      isSelected={props.isSelected}
-      wasMissed={props.wasMissed}
-      onClick={props.onClick}
-      value={props.dayOfWeek}
-    >
-      {getDay(props.dayOfWeek).substring(0, 1).toUpperCase()}
+    <Container {...props}>
+      {getDay(props.date.getDay()).substr(0, 1)}
+
     </Container>
   );
 };
 
 Day.defaultProps = {
-  isSelected: false,
-  wasMissed: false,
-  onClick: () => {}
+  date: undefined
+  // isWorkoutDay: false,
+  // wasMissed: false,
+  // onClick: () => {}
 };
 
 const getDay = day => {
@@ -81,3 +77,4 @@ const getDay = day => {
 };
 
 export default Day;
+export { getDay };

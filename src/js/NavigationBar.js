@@ -2,11 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Hbox } from './Box';
+import theme from './theme';
 
 const Container = styled(Hbox)`
-  background-color: ${props => props.theme.header};
+  background-color: ${theme.focus};
   line-height: 3rem;
-  color: ${props => props.theme.background};
+  color: ${theme.primaryText.negate()};
   align-items: center;
   padding: 0em 0.5em;
 
@@ -23,7 +24,7 @@ const Container = styled(Hbox)`
   }
 
   & > a {
-    color: ${props => props.theme.background};
+    color: currentColor;
   }
 
   & svg {
