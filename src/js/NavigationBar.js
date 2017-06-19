@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { Hbox } from './Box';
 import theme from './theme';
 
-const Container = styled(Hbox)`
+const NavigationBarContainer = styled(Hbox)`
+  component: NavigationBarContainer;
   background-color: ${theme.focus};
   line-height: 3rem;
   color: ${theme.primaryText.negate()};
@@ -33,11 +34,11 @@ const Container = styled(Hbox)`
 `;
 
 const NavigationBar = props => (
-  <Container>
+  <NavigationBarContainer>
     {props.leftTo && props.leftIcon ? <Link to={props.leftTo}>{props.leftIcon}</Link> : <div />}
     <h1>{props.title}</h1>
     {props.rightTo && props.rightIcon ? <Link to={props.rightTo}>{props.rightIcon}</Link> : <div />}
-  </Container>
+  </NavigationBarContainer>
 );
 
 export default NavigationBar;

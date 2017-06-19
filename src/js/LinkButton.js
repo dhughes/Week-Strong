@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { Hbox } from './Box';
 import theme from './theme';
 
-const StyledButton = styled(Link)`
+const StyledLinkButton = styled(Link)`
+  component: StyledLinkButton;
   padding: 0.25em 1em;
   text-decoration: none;
   line-height: 2.5rem;
@@ -40,12 +41,12 @@ const StyledButton = styled(Link)`
 `;
 
 const LinkButton = props => (
-  <StyledButton {...props}>
+  <StyledLinkButton {...props}>
     <Hbox>
       {props.icon}
       <div>{props.label}</div>
     </Hbox>
-  </StyledButton>
+  </StyledLinkButton>
 );
 
 LinkButton.defaultProps = {

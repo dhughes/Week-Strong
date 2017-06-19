@@ -4,12 +4,16 @@ import Body from './Body';
 import logo from '../img/logo.svg';
 import { Vbox } from './Box';
 import LinkButton from './LinkButton';
-import ButtonContainer from './ButtonContainer';
+import PaddedBox from './PaddedBox';
 
-const LogoContainer = styled(Vbox)`
+const LogoContainer = styled(PaddedBox)`
   flex-grow: 1.5;
   justify-content: center;
 `;
+
+const ButtonContainer = styled(PaddedBox)`
+  flex-grow: 1;
+`
 
 const LoggedOutLandingPage = props => (
   <Body>

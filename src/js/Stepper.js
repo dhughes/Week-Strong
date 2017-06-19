@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import theme from './theme';
 
 const Container = styled(Hbox)`
+  height: 3rem;
   line-height: 3rem;
   color: ${theme.primaryText};
 
@@ -14,6 +15,7 @@ const Container = styled(Hbox)`
   }
 
   & > h2{
+    margin: 0;
     text-align: center;
     flex-grow: 1000;
   }
@@ -21,7 +23,6 @@ const Container = styled(Hbox)`
   & > svg {
     fill: currentColor;
   }
-
 `;
 
 const Stepper = props => {

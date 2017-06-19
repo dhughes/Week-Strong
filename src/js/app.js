@@ -10,8 +10,10 @@ import LoginPage from './LoginPage';
 import theme from './theme';
 import GetStarted from './GetStarted';
 import SetDuration from './SetDuration';
+import Summary from './Summary';
 
 const Root = styled(Vbox)`
+  component: Root;
   width: 100vw;
   height: 100vh;
   font-size: 18px;
@@ -19,6 +21,8 @@ const Root = styled(Vbox)`
   align-items: flex-start;
   color: ${theme.primaryText};
   text-align: center;
+  overflow: hidden;
+  box-sizing: border-box;
 
   & *{
     box-sizing: border-box;
@@ -27,6 +31,11 @@ const Root = styled(Vbox)`
   & *:focus {
     outline: 0;
   }
+
+  /*& h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+  }*/
+
 `;
 
 class App extends Component {
@@ -76,12 +85,12 @@ class App extends Component {
         {
           id: 3,
           name: 'Situps',
-          image: '/img/pullups.jpg'
+          image: '/img/situps.jpg'
         },
         {
           id: 4,
           name: 'Squats',
-          image: '/img/pullups.jpg'
+          image: '/img/squats.jpg'
         }
       ],
       history: [
@@ -400,7 +409,18 @@ class App extends Component {
                 exact
                 path="/setDuration"
                 component={() => (
-                  <SetDuration selectedExerciseCount={this.state.program.exercises.length} days={this.state.program.selectedDays} weeks={this.state.program.days / 3} />
+                  <SetDuration
+                    selectedExerciseCount={this.state.program.exercises.length}
+                    days={this.state.program.selectedDays}
+                    weeks={this.state.program.days / 3}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/summary"
+                component={() => (
+                  <Summary weeks={this.state.program.days / 3} selectedExercises={this.state.program.exercises} />
                 )}
               />
 

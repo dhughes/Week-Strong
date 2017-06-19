@@ -4,7 +4,7 @@ import { Vbox, Hbox } from './Box';
 import Body from './Body';
 import NavigationBar from './NavigationBar';
 import { Pencil, Settings } from './Icon';
-import Day, { getDay } from './Day';
+import Day from './Day2';
 import LinkButton from './LinkButton';
 import ProgressBar from './ProgressBar';
 import LabelValue from './LabelValue';
@@ -64,6 +64,27 @@ class LandingPage extends Component {
     this.weeks = {};
   }
 
+  getDay(day){
+    switch (day) {
+      case 0:
+        return 'Sunday';
+      case 1:
+        return 'Monday';
+      case 2:
+        return 'Tuesday';
+      case 3:
+        return 'Wednesday';
+      case 4:
+        return 'Thursday';
+      case 5:
+        return 'Friday';
+      case 6:
+        return 'Saturday';
+      default:
+        return '';
+    }
+  };
+
   getNextWorkoutDay = (today, selectedDays) => {
     // clone the date so we don't modify it
     today = new Date(today);
@@ -107,7 +128,13 @@ class LandingPage extends Component {
 
     for (let week of this.props.history) {
       for (let day of week) {
-        dayComponents.push(<Day key={day.date} {...day} today={this.props.today} />);
+        dayComponents.push(
+          <Day key={day.date}
+            day={this.getDay(day.date.getDay())}
+            isToday={day.date.getTime() === this.props.today.getTime()}
+            restored={day.restored}
+            isWorkoutDay={day.day}
+            inProgram={day.inProgram} />);
       }
       weekComponents.push(
         <Week key={x} innerRef={this.addRefForWeek(x)} weeks={this.props.history.length}>
@@ -129,7 +156,7 @@ class LandingPage extends Component {
         </Vbox>
       ];
     } else {
-      const nextDay = getDay(this.props.nextWorkoutDay.getDay());
+      const nextDay = this.getDay(this.props.nextWorkoutDay.getDay());
       const nextDate = this.dateOrdinal(this.props.nextWorkoutDay.getDate());
       body = (
         <div>

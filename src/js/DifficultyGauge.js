@@ -6,9 +6,14 @@ import pointer from '../img/pointer.svg';
 const Gauge = styled.div`
   background-image: url(${gauge});
   background-size: cover;
-  width: 100%;
-  height: 50vw;
+  width: 80vw;
+  height: 40vw;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: -1em;
+  margin-top: 1em;
   overflow: hidden;
+  flex-shrink: 0;
 `;
 
 const Indicator = styled.div`
