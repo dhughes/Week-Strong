@@ -16,20 +16,20 @@ const Div = styled.div`
 
 const Summary = props => (
   <Vbox>
-    <NavigationBar leftIcon={<ChevronLeft />} leftTo="/setDuration" title="Program Summary" />
+    <NavigationBar leftBack leftIcon={<ChevronLeft />} title="Program Summary" />
 
     <Body justifyContent="flex-start">
       <Div>
         <h2>{props.weeks} Week Program:</h2>
 
         <Hbox justifyContent="space-between">
-          <Day day="Sunday" />
-          <Day day="Monday" isWorkoutDay />
-          <Day day="Tuesday" />
-          <Day day="Wednesday" isWorkoutDay />
-          <Day day="Thursday" />
-          <Day day="Friday" isWorkoutDay />
-          <Day day="Saturday" />
+          <Day inProgram day="Sunday" />
+          <Day inProgram day="Monday" isWorkoutDay />
+          <Day inProgram day="Tuesday" />
+          <Day inProgram day="Wednesday" isWorkoutDay />
+          <Day inProgram day="Thursday" />
+          <Day inProgram day="Friday" isWorkoutDay />
+          <Day inProgram day="Saturday" />
         </Hbox>
 
         <h2>Exercises:</h2>
@@ -54,7 +54,7 @@ const Summary = props => (
     </Body>
     <Footer style={{ flexShrink: 0 }}>
       <LinkButton to="/test" label="Start The Test!" className="default" />
-      <LinkButton to="/" label="Take Test Later" />
+      <LinkButton to="/createProfile" label="Take Test Later" />
     </Footer>
 
   </Vbox>

@@ -1,151 +1,21 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Vbox, Hbox } from './Box';
+import { Vbox } from './Box';
 import Body from './Body';
 import NavigationBar from './NavigationBar';
 import { Pencil, Settings } from './Icon';
-import Day from './Day2';
 import LinkButton from './LinkButton';
 import ProgressBar from './ProgressBar';
 import LabelValue from './LabelValue';
-import theme from './theme';
+import Schedule from './Schedule';
 
 const H2 = styled.h2`
   font-size: 1.4rem;
   text-align: center;
 `;
 
-const Schedule = styled(Hbox)`
-  color: black;
-  width: 100vw;
-  margin-left: -1rem;
-  margin-right: 1rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  white-space: nowrap;
-  overflow: scroll;
-  box-sizing: border-box;
-
-  & > div{
-    padding: 0 0.5rem;
-    border-right: 1px solid ${theme.separator};
-  }
-
-  & > div:first-child{
-    margin-left: 1em;
-  }
-
-  & > div:last-child{
-    margin-right: 1em;
-    border-right: 0;
-  }
-`;
-
-const Week = styled(Vbox)`
-  width: 100vw;
-  box-sizing: border-box;
-  margin:0;
-
-  & > div{
-    font-size: 0.9rem;
-    color: ${theme.hintText};
-  }
-`;
-
-const WeekDays = styled(Hbox)`
-`;
-
 class LandingPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      weekScrollPosition: undefined
-    };
-    this.weeks = {};
-  }
-
-  getDay(day){
-    switch (day) {
-      case 0:
-        return 'Sunday';
-      case 1:
-        return 'Monday';
-      case 2:
-        return 'Tuesday';
-      case 3:
-        return 'Wednesday';
-      case 4:
-        return 'Thursday';
-      case 5:
-        return 'Friday';
-      case 6:
-        return 'Saturday';
-      default:
-        return '';
-    }
-  };
-
-  getNextWorkoutDay = (today, selectedDays) => {
-    // clone the date so we don't modify it
-    today = new Date(today);
-    const dayOfWeek = today.getDay();
-    const nextWorkoutDay = selectedDays.find(e => e > dayOfWeek);
-    const daysAway = nextWorkoutDay - dayOfWeek;
-    return new Date(today.setDate(today.getDate() + daysAway));
-  };
-
-  // todo: test this
-  dateOrdinal = date => {
-    switch (date % 10) {
-      case 1:
-        return date + 'st';
-      case 2:
-        return date + 'nd';
-      case 3:
-        return date + 'rd';
-      default:
-        return date + 'th';
-    }
-  };
-
-  componentDidMount() {
-    if (this.state.weekScrollPosition === undefined) {
-      const weekWidth = this.weeks[1].offsetWidth;
-
-      // set the scroll position for the schedule to show the current week.
-      this.schedule.scrollLeft = (this.props.program.currentWeek - 1) * weekWidth;
-    }
-  }
-
-  addRefForWeek(week) {
-    return component => (this.weeks[week] = component);
-  }
-
   render() {
-    let weekComponents = [];
-    let dayComponents = [];
-    let x = 1;
-
-    for (let week of this.props.history) {
-      for (let day of week) {
-        dayComponents.push(
-          <Day key={day.date}
-            day={this.getDay(day.date.getDay())}
-            isToday={day.date.getTime() === this.props.today.getTime()}
-            restored={day.restored}
-            isWorkoutDay={day.day}
-            inProgram={day.inProgram} />);
-      }
-      weekComponents.push(
-        <Week key={x} innerRef={this.addRefForWeek(x)} weeks={this.props.history.length}>
-          <div>Week {x}</div>
-          <WeekDays justifyContent="space-between">{dayComponents}</WeekDays>
-        </Week>
-      );
-      dayComponents = [];
-      x++;
-    }
-
     let body;
     if (this.props.nextWorkoutDay.getTime() === this.props.today.getTime()) {
       body = [
@@ -185,9 +55,11 @@ class LandingPage extends Component {
           <Vbox>
             <H2>Welcome back, {this.props.user.name.split(' ')[0]}</H2>
 
-            <Schedule innerRef={schedule => (this.schedule = schedule)}>
-              {weekComponents}
-            </Schedule>
+            <Schedule
+              history={this.props.history}
+              today={this.props.today}
+              currentWeek={this.props.program.currentWeek}
+            />
           </Vbox>
 
           {body}

@@ -9,7 +9,7 @@ import ExerciseTile2 from './ExerciseTile2';
 
 const GetStarted = props => (
   <Vbox>
-    <NavigationBar leftIcon={<ChevronLeft />} leftTo="/" title="Create Your Program" />
+    <NavigationBar leftBack leftIcon={<ChevronLeft />} title="Create Your Program" />
 
     <Body>
       <p>Choose up to four exercises for your program.</p>

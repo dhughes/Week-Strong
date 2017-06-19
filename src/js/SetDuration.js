@@ -18,13 +18,15 @@ const Div = styled(PaddedBox)`
 
 const SetDuration = props => (
   <Vbox>
-    <NavigationBar leftIcon={<ChevronLeft />} leftTo="/getStarted" title="Choose your Duration" />
+    <NavigationBar leftBack leftIcon={<ChevronLeft />} title="Choose your Duration" />
 
     <Body>
       <Div>
         <h2>You chose {props.selectedExerciseCount} exercises</h2>
 
-        <p>Choose the days of the week you will work out. Choose carefully, this can't be changed once you start your program.</p>
+        <p>
+          Choose the days of the week you will work out. Choose carefully, this can't be changed once you start your program.
+        </p>
 
         <Hbox justifyContent="space-between">
           <Day day="Sunday" />
