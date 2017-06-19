@@ -6,6 +6,7 @@ const Body = styled(Vbox)`
   overflow: scroll;
   height: 100vh;
   box-sizing: border-box;
+  padding: 1em;
 
   & > *{
     box-sizing: border-box;

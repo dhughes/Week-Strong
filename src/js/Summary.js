@@ -7,9 +7,8 @@ import Footer from './Footer';
 import LinkButton from './LinkButton';
 import NavigationBar from './NavigationBar';
 import { ChevronLeft } from './Icon';
-import PaddedBox from './PaddedBox';
 
-const Div = styled(PaddedBox)`
+const Div = styled.div`
   component: SummaryBodyDiv;
   text-align: left;
   flex-shrink: 0;
@@ -53,7 +52,7 @@ const Summary = props => (
         </p>
       </Div>
     </Body>
-    <Footer>
+    <Footer style={{ flexShrink: 0 }}>
       <LinkButton to="/test" label="Start The Test!" className="default" />
       <LinkButton to="/" label="Take Test Later" />
     </Footer>

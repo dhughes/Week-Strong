@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Body from './Body';
 import logo from '../img/logo.svg';
-import { Vbox } from './Box';
 import LinkButton from './LinkButton';
 import PaddedBox from './PaddedBox';
 
@@ -13,7 +12,7 @@ const LogoContainer = styled(PaddedBox)`
 
 const ButtonContainer = styled(PaddedBox)`
   flex-grow: 1;
-`
+`;
 
 const LoggedOutLandingPage = props => (
   <Body>
