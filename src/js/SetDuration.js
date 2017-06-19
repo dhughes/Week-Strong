@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Vbox, Hbox } from './Box';
-import Day from './Day2';
+import { Vbox } from './Box';
 import Body from './Body';
 import Footer from './Footer';
 import LinkButton from './LinkButton';
@@ -10,6 +9,7 @@ import Stepper from './Stepper';
 import { ChevronLeft } from './Icon';
 import DifficultyGauge from './DifficultyGauge';
 import PaddedBox from './PaddedBox';
+import ScheduleSummary from './ScheduleSummary';
 
 const Div = styled(PaddedBox)`
   text-align: left;
@@ -28,15 +28,7 @@ const SetDuration = props => (
           Choose the days of the week you will work out. Choose carefully, this can't be changed once you start your program.
         </p>
 
-        <Hbox justifyContent="space-between">
-          <Day day="Sunday" />
-          <Day day="Monday" isWorkoutDay />
-          <Day day="Tuesday" />
-          <Day day="Wednesday" isWorkoutDay />
-          <Day day="Thursday" />
-          <Day day="Friday" isWorkoutDay />
-          <Day day="Saturday" />
-        </Hbox>
+        <ScheduleSummary />
 
         <p>Choose the number of weeks to complete your goal. Fewer weeks are harder!</p>
 

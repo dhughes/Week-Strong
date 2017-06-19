@@ -11,6 +11,10 @@ const Body = styled(Vbox)`
   & > *{
     box-sizing: border-box;
   }
+
+  & > p{
+    text-align: left;
+  }
 `;
 
 Body.defaultProps = {

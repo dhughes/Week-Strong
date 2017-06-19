@@ -5,6 +5,7 @@ import colors from './colors';
 import history from './history';
 import { Vbox } from './Box';
 import LoggedOutLandingPage from './LoggedOutLandingPage';
+import FitnessTestIncompleteLandingPage from './FitnessTestIncompleteLandingPage';
 import LandingPage from './LandingPage';
 import LoginPage from './LoginPage';
 import theme from './theme';
@@ -12,7 +13,7 @@ import GetStarted from './GetStarted';
 import SetDuration from './SetDuration';
 import Summary from './Summary';
 import CreateProfile from './CreateProfile';
-import state from './state';
+import state from './testStates/incompleteFitnessTestState';
 
 const Root = styled(Vbox)`
   component: Root;
@@ -41,17 +42,39 @@ class App extends Component {
     this.state = state;
   }
   handleTakeTestLater = () => {
-    this.setState({ loggedIn: true, user: { anonymous: true, id: null, name: null, email: null } });
+    this.setState({ loggedIn: true, user: { id: null, name: null, email: null } });
     history.push('/');
   };
   handleLoginSubmit = (email, password) => {
     this.setState({ loggedIn: true });
     history.push('/');
   };
+  handleCreateProfileSubmit = (name, email, password) => {
+    this.setState({ loggedIn: true, user: { id: 123, name: name, email: email, password: password } });
+    history.push('/');
+  };
   render() {
     let routes = [];
     let key = 0;
-    if (this.state.loggedIn) {
+    if (this.state.loggedIn && !this.state.program.fitnessTest.complete) {
+      // user is logged in
+      routes = [
+        <Route
+          key={++key}
+          exact
+          path="/"
+          component={() => (
+            <FitnessTestIncompleteLandingPage
+              user={this.state.user}
+              program={this.state.program}
+              history={this.state.history}
+              today={this.state.today}
+              nextWorkoutDay={this.state.nextWorkoutDay}
+            />
+          )}
+        />
+      ];
+    } else if (this.state.loggedIn) {
       // user is logged in
       routes = [
         <Route
@@ -112,7 +135,11 @@ class App extends Component {
                   />
                 )}
               />
-              <Route exact path="/createProfile" component={() => <CreateProfile />} />
+              <Route
+                exact
+                path="/createProfile"
+                component={() => <CreateProfile onCreateProfileSubmit={this.handleCreateProfileSubmit} />}
+              />
 
             </Switch>
           </Root>

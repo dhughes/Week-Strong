@@ -15,7 +15,7 @@ export default {
     // this only counts today after today is done
     streak: 7,
     fitnessTest: {
-      compete: false
+      compete: true
     },
     stats: [
       {

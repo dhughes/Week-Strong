@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Vbox, Hbox } from './Box';
-import Day from './Day2';
+import Day from './Day';
 import theme from './theme';
 
 const Weeks = styled(Hbox)`

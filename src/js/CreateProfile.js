@@ -28,6 +28,12 @@ class CreateProfile extends Component {
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
+  handleCreateProfileSubmit = e => {
+    e.preventDefault();
+    let { name, email, password } = this.state;
+    this.props.onCreateProfileSubmit(name, email, password);
+    this.setState({ password: '' });
+  };
   render() {
     return (
       <Vbox>
@@ -36,7 +42,7 @@ class CreateProfile extends Component {
           <LinkButton to="/facebook" icon={<Facebook />} label="Sign In With Facebook" className="facebook" />
           <LinkButton to="/google" icon={<Google />} label="Sign In With Google" className="google" />
           <SectionBreak />
-          <form onSubmit={this.handleLoginSubmit}>
+          <form onSubmit={this.handleCreateProfileSubmit}>
             <Vbox>
               <Input type="text" name="name" value={this.state.name} onChange={this.handleChange} placeholder="Name" />
               <Input
