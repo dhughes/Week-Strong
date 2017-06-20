@@ -6,7 +6,7 @@ import history from './history';
 import LinkButton from './LinkButton';
 import NavigationBar from './NavigationBar';
 import { ChevronLeft } from './Icon';
-import ExerciseTile2 from './ExerciseTile2';
+import ExerciseTile from './ExerciseTile';
 
 const GetStarted = props => (
   <Vbox>
@@ -16,12 +16,15 @@ const GetStarted = props => (
       <p>Choose up to four exercises for your program.</p>
       <Hbox justifyContent="space-between" wrap={true}>
         {props.exercises.map(exercise => (
-          <ExerciseTile2
+          <ExerciseTile
             key={exercise.id}
             id={exercise.id}
             image={exercise.image}
             label={exercise.name}
-            selected={props.selectedExercises.find(selectedExercise => selectedExercise.id === exercise.id)}
+            selected={
+              props.selectedExercises &&
+                props.selectedExercises.find(selectedExercise => selectedExercise.id === exercise.id)
+            }
           />
         ))}
       </Hbox>

@@ -1,122 +1,101 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import history from './history';
 import { Vbox, Hbox } from './Box';
 import { Checkmark, Close } from './Icon';
 import theme from './theme';
 
-const CenteredVbox = styled(Vbox)`
-  width: 50vw;
-  height: 50vw;
-  padding: 0.5em;
+const Exercise = styled(Vbox)`
+  border: 1px solid ${theme.primaryText};
+  box-sizing: border-box;
+  width: 44vw;
+  height: 44vw;
+  margin-bottom: 1em;
 
-  & > * {
-     margin: 0;
-     width: 100%;
-     text-align: center;
-   }
-`;
-
-const SelectableImageHbox = styled(Hbox)`
   background-size: cover;
   background-position: 50% 100%;
-  min-height: 200px;
 
-  & > div {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    vertical-align: middle;
-    font-size: 2rem;
-    font-weight: bold;
-    color: green;
-    padding: 0.25rem;
-    background-color: rgba(255,255,255,0.75);
-
-    & > img {
-        width: 66%;
-        max-width: 150px;
-        height: 66%;
-    }
-  }
-`;
-
-const Selected = styled(Hbox)`
-  height: 3rem;
-  margin-bottom: -3rem;
-  line-height: 3rem;
-  background-color: rgba(238, 235, 211, 0.9);
-  color: ${theme.positive};;
-  z-index: 1;
-  justify-content: flex-start;
+  background-image: url(${props => props.image});
 
   & > * {
+    margin: 0;
+    padding: 0;
     height: 3rem;
-    width: 2rem;
-    margin: 0.2rem;
+    line-height: 3rem;
   }
 
-  & > h2{
-    text-align: left;
-    flex-grow: 1000;
+  & > h3{
+    background-color: ${theme.primary.fade(0.25)};
+    color: ${theme.primaryText.negate()};
+    align-self: flex-end;
   }
 
-  & > svg {
-    fill: currentColor;
-  }
+  & > div{
+    height: 3rem;
+    margin-bottom: -3rem;
+    line-height: 3rem;
+    background-color: ${theme.primaryText.negate().fade(0.25)};
+    justify-content: flex-start;
 
-  & > .remove{
-    fill: ${theme.negative};
-  }
-`;
+    & > * {
+      height: 3rem;
+      width: 2rem;
+      margin: 0.2rem;
+      color: ${theme.positive};
+    }
 
-const Label = styled(Hbox)`
-  height: 3rem;
-  margin-top: -3rem;
-  line-height: 3rem;
-  background-color: rgba(57, 62, 65, 0.75);
-  color: ${theme.primaryText};
+    & > h2{
+      text-align: left;
+      flex-grow: 1000;
+    }
+
+    & > svg {
+      fill: currentColor;
+    }
+
+    & > .remove{
+      fill: ${theme.negative};
+    }
+  }
 `;
 
 class ExerciseTile extends Component {
   onRemove = e => {
     e.stopPropagation();
     e.preventDefault();
-    this.props.onRemove(e);
+    this.props.onRemoveClick(e);
+  };
+  onSelect = e => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    if (this.props.onSelectClick) {
+      this.props.onSelectClick(e);
+    } else {
+      history.push(`/exercise/${this.props.id}`);
+    }
   };
   render() {
-    console.log(this.props);
     return (
-      <CenteredVbox onClick={this.props.onSelectClick}>
-        {this.props.isSelected
-          ? <Selected>
-            <Checkmark />
-            <h2>{this.props.count}</h2>
-            <Close className="remove" onClick={this.onRemoveClick} />
-          </Selected>
-        : null}
-        <SelectableImageHbox
-          className="exercise"
-          style={{
-            backgroundImage: `url(${this.props.src})`
-          }}
-          title={this.props.label}
-        />
-        <Label>
-          <h4>
-            {this.props.label}
-          </h4>
-        </Label>
+      <Exercise reverse={true} justifyContent="space-between" image={this.props.image} onClick={this.onSelect}>
+        <h3>{this.props.label}</h3>
 
-      </CenteredVbox>
+        {this.props.selected
+          ? <Hbox>
+              <Checkmark />
+              <h2>{this.props.selected.quantity}</h2>
+              <Close className="remove" onClick={this.onRemove} />
+            </Hbox>
+          : null}
+      </Exercise>
     );
   }
 }
 
 ExerciseTile.defaultProps = {
-  isSelected: false,
-  onSelectClick: () => {},
-  onRemoveClick: () => {}
+  selected: false,
+  onSelectClick: undefined,
+  onRemoveClick: e => console.log('remove', e)
 };
 
 export default ExerciseTile;

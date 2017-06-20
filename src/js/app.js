@@ -10,11 +10,12 @@ import LandingPage from './LandingPage';
 import LoginPage from './LoginPage';
 import theme from './theme';
 import GetStarted from './GetStarted';
+import Exercise from './Exercise';
 import SetDuration from './SetDuration';
 import Summary from './Summary';
 import CreateProfile from './CreateProfile';
 import FitnessTest from './FitnessTest';
-import state from './testStates/incompleteFitnessTestState';
+import state from './testStates/newUserState';
 
 const Root = styled(Vbox)`
   component: Root;
@@ -53,6 +54,13 @@ class App extends Component {
   handleCreateProfileSubmit = (name, email, password) => {
     this.setState({ loggedIn: true, user: { id: 123, name: name, email: email, password: password } });
     history.push('/');
+  };
+  handleAddToProgram = exercise => {
+    let exercises = this.state.program.exercises ? this.state.program.exercises.slice() : [];
+    exercises = exercises.filter(selectedExercise => selectedExercise.id !== exercise.id);
+    exercises.push(exercise);
+    this.setState({ program: { exercises } });
+    history.push('/getStarted');
   };
   render() {
     let routes = [];
@@ -112,6 +120,25 @@ class App extends Component {
                 path="/getStarted"
                 component={() => (
                   <GetStarted exercises={this.state.exercises} selectedExercises={this.state.program.exercises} />
+                )}
+              />
+              <Route
+                exact
+                path="/exercise/:id"
+                component={props => (
+                  <Exercise
+                    exercise={this.state.exercises.find(
+                      exercise => exercise.id === parseInt(props.match.params.id, 10)
+                    )}
+                    selected={
+                      this.state.program.exercises
+                        ? this.state.program.exercises.find(
+                            exercise => exercise.id === parseInt(props.match.params.id, 10)
+                          )
+                        : undefined
+                    }
+                    onAddToProgram={this.handleAddToProgram}
+                  />
                 )}
               />
               <Route
