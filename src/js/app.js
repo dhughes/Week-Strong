@@ -13,6 +13,7 @@ import GetStarted from './GetStarted';
 import SetDuration from './SetDuration';
 import Summary from './Summary';
 import CreateProfile from './CreateProfile';
+import FitnessTest from './FitnessTest';
 import state from './testStates/incompleteFitnessTestState';
 
 const Root = styled(Vbox)`
@@ -139,6 +140,13 @@ class App extends Component {
                 exact
                 path="/createProfile"
                 component={() => <CreateProfile onCreateProfileSubmit={this.handleCreateProfileSubmit} />}
+              />
+              <Route
+                exact
+                path="/fitnessTest"
+                component={() => (
+                  <FitnessTest exercises={this.state.exercises} selectedExercises={this.state.program.exercises} />
+                )}
               />
 
             </Switch>

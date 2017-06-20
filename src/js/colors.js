@@ -2,7 +2,7 @@ const colors = {
   focus: '#333333',
 
   primary: '#333333',
-  secondary: '#CCCCCC',
+  secondary: '#BBBBBB',
 
   primaryText: '#000000',
   secondaryText: '#333333',
@@ -11,6 +11,7 @@ const colors = {
   primaryAction: '#009900',
 
   background: '#FFFFFF',
+  footerBackground: '#E9E9E9',
 
   separator: '#DDDDDD',
 

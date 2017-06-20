@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Vbox } from './Box';
 import Body from './Body';
 import Footer from './Footer';
+import history from './history';
 import LinkButton from './LinkButton';
 import NavigationBar from './NavigationBar';
 import Stepper from './Stepper';
@@ -18,7 +19,7 @@ const Div = styled(PaddedBox)`
 
 const SetDuration = props => (
   <Vbox>
-    <NavigationBar leftBack leftIcon={<ChevronLeft />} title="Choose your Duration" />
+    <NavigationBar leftIcon={<ChevronLeft />} onLeftIconClick={e => history.goBack()} title="Choose your Duration" />
 
     <Body>
       <Div>

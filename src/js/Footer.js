@@ -4,9 +4,15 @@ import theme from './theme';
 
 const Footer = styled(Vbox)`
   component: Footer;
-  border-top: 1px solid ${theme.separator};
-  padding: 0.5rem 1rem 1rem 1rem;
+  background-color: ${theme.footerBackground};
+  border-top: 2px solid ${theme.separator.darken(0.25)};
+  padding: 0.5rem 1rem;
   overflow: visible;
+  flex-shrink: 0;
+
+  & > p {
+    margin: 0.5rem;
+  }
 `;
 
 export default Footer;

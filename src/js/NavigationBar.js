@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Hbox } from './Box';
-import history from './history';
 import theme from './theme';
 
 const NavigationBarContainer = styled(Hbox)`
@@ -35,23 +34,28 @@ const NavigationBarContainer = styled(Hbox)`
   }
 `;
 
-const NavigationBar = props => {
-  let leftButton;
+class NavigationBar extends Component {
+  createButton(icon, onIconClick, to) {
+    if (icon) {
+      if (onIconClick) {
+        return <a onClick={onIconClick}>{icon}</a>;
+      } else if (to) {
+        return <Link to={to}>{icon}</Link>;
+      }
+    }
 
-  if (props.leftBack && props.leftIcon) {
-    leftButton = <a onClick={e => history.goBack()}>{props.leftIcon}</a>;
-  } else if (props.leftTo && props.leftIcon) {
-    leftButton = <Link to={props.leftTo}>{props.leftIcon}</Link>;
-  } else {
-    leftButton = <div />;
+    return <div />;
   }
-  return (
-    <NavigationBarContainer>
-      {leftButton}
-      <h1>{props.title}</h1>
-      {props.rightTo && props.rightIcon ? <Link to={props.rightTo}>{props.rightIcon}</Link> : <div />}
-    </NavigationBarContainer>
-  );
-};
+
+  render() {
+    return (
+      <NavigationBarContainer>
+        {this.createButton(this.props.leftIcon, this.props.onLeftIconClick, this.props.leftTo)}
+        <h1>{this.props.title}</h1>
+        {this.createButton(this.props.rightIcon, this.props.onRightIconClick, this.props.rightTo)}
+      </NavigationBarContainer>
+    );
+  }
+}
 
 export default NavigationBar;

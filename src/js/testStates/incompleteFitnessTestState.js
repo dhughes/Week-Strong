@@ -15,7 +15,7 @@ export default {
     fitnessTest: {
       compete: false
     },
-    exercises: [{ id: 1, quantity: 20 }, { id: 4, quantity: 100 }],
+    exercises: [{ id: 1, quantity: 20, testResults: [] }, { id: 4, quantity: 100, testResults: [] }],
     stats: [
       {
         name: 'Pullups',

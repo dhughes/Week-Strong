@@ -18,6 +18,11 @@ const Input = styled.input`
   &::placeholder {
     color: ${theme.primaryText.fade(0.6)}
   }
+
+  &.error{
+    color: ${theme.negative};
+    background-color: ${theme.negative.fade(0.9)};
+  }
 `;
 
 export default Input;

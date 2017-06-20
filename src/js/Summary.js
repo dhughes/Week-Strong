@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Vbox } from './Box';
 import Body from './Body';
 import Footer from './Footer';
+import history from './history';
 import LinkButton from './LinkButton';
 import NavigationBar from './NavigationBar';
 import ScheduleSummary from './ScheduleSummary';
@@ -16,7 +17,7 @@ const Div = styled.div`
 
 const Summary = props => (
   <Vbox>
-    <NavigationBar leftBack leftIcon={<ChevronLeft />} title="Program Summary" />
+    <NavigationBar leftIcon={<ChevronLeft />} onLeftIconClick={e => history.goBack()} title="Program Summary" />
 
     <Body justifyContent="flex-start">
       <Div>
