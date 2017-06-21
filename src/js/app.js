@@ -62,6 +62,11 @@ class App extends Component {
     this.setState({ program: { exercises } });
     history.push('/getStarted');
   };
+  handleRemoveExercise = id => {
+    let exercises = this.state.program.exercises ? this.state.program.exercises.slice() : [];
+    exercises = exercises.filter(selectedExercise => selectedExercise.id !== id);
+    this.setState({ program: { exercises } });
+  };
   render() {
     let routes = [];
     let key = 0;
@@ -119,7 +124,11 @@ class App extends Component {
                 exact
                 path="/getStarted"
                 component={() => (
-                  <GetStarted exercises={this.state.exercises} selectedExercises={this.state.program.exercises} />
+                  <GetStarted
+                    exercises={this.state.exercises}
+                    selectedExercises={this.state.program.exercises}
+                    handleRemoveExercise={this.handleRemoveExercise}
+                  />
                 )}
               />
               <Route

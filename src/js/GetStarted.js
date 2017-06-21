@@ -9,7 +9,7 @@ import { ChevronLeft } from './Icon';
 import ExerciseTile from './ExerciseTile';
 
 class GetStarted extends Component {
-  handleRemoveExercise = event => console.log(event);
+  handleRemoveExercise = id => this.props.handleRemoveExercise(id);
   render() {
     return (
       <Vbox>

@@ -63,7 +63,7 @@ class ExerciseTile extends Component {
   onRemove = e => {
     e.stopPropagation();
     e.preventDefault();
-    this.props.onRemoveClick(e);
+    this.props.onRemoveClick(this.props.id);
   };
   onSelect = e => {
     e.stopPropagation();

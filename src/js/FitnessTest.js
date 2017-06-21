@@ -6,11 +6,11 @@ import Rest from './fitnessTest/Rest';
 import Summary from './fitnessTest/Summary';
 import history from './history';
 
-const INSTRUCTIONS = 0;
-const TEST = 1;
-const STOP = 2;
-const REST = 3;
-const SUMMARY = 4;
+const INSTRUCTIONS = 'INSTRUCTIONS';
+const TEST = 'TEST';
+const STOP = 'STOP';
+const REST = 'REST';
+const SUMMARY = 'SUMMARY';
 
 class FitnessTest extends Component {
   constructor(props) {
