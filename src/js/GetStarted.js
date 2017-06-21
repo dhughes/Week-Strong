@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Vbox, Hbox } from './Box';
 import Body from './Body';
 import Footer from './Footer';
@@ -8,33 +8,39 @@ import NavigationBar from './NavigationBar';
 import { ChevronLeft } from './Icon';
 import ExerciseTile from './ExerciseTile';
 
-const GetStarted = props => (
-  <Vbox>
-    <NavigationBar leftIcon={<ChevronLeft />} onLeftIconClick={e => history.goBack()} title="Create Your Program" />
+class GetStarted extends Component {
+  handleRemoveExercise = event => console.log(event);
+  render() {
+    return (
+      <Vbox>
+        <NavigationBar leftIcon={<ChevronLeft />} onLeftIconClick={e => history.goBack()} title="Create Your Program" />
 
-    <Body>
-      <p>Choose up to four exercises for your program.</p>
-      <Hbox justifyContent="space-between" wrap={true}>
-        {props.exercises.map(exercise => (
-          <ExerciseTile
-            key={exercise.id}
-            id={exercise.id}
-            image={exercise.image}
-            label={exercise.name}
-            selected={
-              props.selectedExercises &&
-                props.selectedExercises.find(selectedExercise => selectedExercise.id === exercise.id)
-            }
-          />
-        ))}
-      </Hbox>
-    </Body>
+        <Body>
+          <p>Choose up to four exercises for your program.</p>
+          <Hbox justifyContent="space-between" wrap={true}>
+            {this.props.exercises.map(exercise => (
+              <ExerciseTile
+                key={exercise.id}
+                id={exercise.id}
+                image={exercise.image}
+                label={exercise.name}
+                selected={
+                  this.props.selectedExercises &&
+                    this.props.selectedExercises.find(selectedExercise => selectedExercise.id === exercise.id)
+                }
+                onRemoveClick={this.handleRemoveExercise}
+              />
+            ))}
+          </Hbox>
+        </Body>
 
-    <Footer>
-      <LinkButton to="/setDuration" label="Continue" className="default" />
-    </Footer>
+        <Footer>
+          <LinkButton to="/setDuration" label="Continue" className="default" />
+        </Footer>
 
-  </Vbox>
-);
+      </Vbox>
+    );
+  }
+}
 
 export default GetStarted;

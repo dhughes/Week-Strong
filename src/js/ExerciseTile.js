@@ -95,7 +95,7 @@ class ExerciseTile extends Component {
 ExerciseTile.defaultProps = {
   selected: false,
   onSelectClick: undefined,
-  onRemoveClick: e => console.log('remove', e)
+  onRemoveClick: () => {}
 };
 
 export default ExerciseTile;
