@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Hbox } from './Box';
-import theme from './theme';
+import theme from '../../util/theme';
 
 const NavigationBarContainer = styled(Hbox)`
   component: NavigationBarContainer;
@@ -12,6 +12,7 @@ const NavigationBarContainer = styled(Hbox)`
   align-items: center;
   padding: 0em 0.5em;
   flex-shrink: 0;
+  justify-content: space-between;
 
   & > * {
     height: 3rem;
@@ -20,9 +21,8 @@ const NavigationBarContainer = styled(Hbox)`
   }
 
   & > h1{
-    font-size: 1.4rem;
-    text-align: center;
-    flex-grow: 1000;
+    width: auto;
+    white-space: nowrap;
   }
 
   & > a {
@@ -35,12 +35,12 @@ const NavigationBarContainer = styled(Hbox)`
 `;
 
 class NavigationBar extends Component {
-  createButton(icon, onIconClick, to) {
-    if (icon) {
+  createButton(Icon, onIconClick, to) {
+    if (Icon) {
       if (onIconClick) {
-        return <a onClick={onIconClick}>{icon}</a>;
+        return <a onClick={onIconClick}><Icon /></a>;
       } else if (to) {
-        return <Link to={to}>{icon}</Link>;
+        return <Link to={to}><Icon /></Link>;
       }
     }
 

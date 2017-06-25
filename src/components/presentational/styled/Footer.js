@@ -1,6 +1,6 @@
-import { Vbox } from './Box';
+import { Vbox } from '../Box';
 import styled from 'styled-components';
-import theme from './theme';
+import theme from '../../../util/theme';
 
 const Footer = styled(Vbox)`
   component: Footer;

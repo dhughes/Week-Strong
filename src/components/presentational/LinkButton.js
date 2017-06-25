@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Hbox } from './Box';
-import theme from './theme';
+import theme from '../../util/theme';
 
 const StyledLinkButton = styled(Link)`
   component: StyledLinkButton;
@@ -16,6 +16,7 @@ const StyledLinkButton = styled(Link)`
   color: black;
   margin: 0.5rem auto;
   border: 0px;
+  border-radius: 0.3em;
 
   &.default{
     background-color: ${theme.primaryAction};
@@ -40,14 +41,13 @@ const StyledLinkButton = styled(Link)`
 
 `;
 
-const LinkButton = props => (
+const LinkButton = props =>
   <StyledLinkButton {...props}>
     <Hbox>
       {props.icon}
       <div>{props.label}</div>
     </Hbox>
-  </StyledLinkButton>
-);
+  </StyledLinkButton>;
 
 LinkButton.defaultProps = {
   icon: null

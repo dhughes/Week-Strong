@@ -1,12 +1,13 @@
 import styled from 'styled-components';
-import { Vbox } from './Box';
+import PropTypes from 'prop-types';
+import { Vbox } from '../Box';
 
 const Body = styled(Vbox)`
   component: Body;
   overflow: scroll;
   height: 100vh;
   box-sizing: border-box;
-  padding: 1em;
+  padding: ${props => (props.padded ? '1em' : '0')};
 
   & > *{
     box-sizing: border-box;
@@ -18,7 +19,13 @@ const Body = styled(Vbox)`
 `;
 
 Body.defaultProps = {
-  justifyContent: 'default'
+  justifyContent: 'default',
+  padded: true
+};
+
+Body.propTypes = {
+  justifyContent: PropTypes.string,
+  padded: PropTypes.bool
 };
 
 export default Body;
