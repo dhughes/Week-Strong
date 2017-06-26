@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
 import { Vbox } from '../presentational/Box';
 import Body from '../presentational/styled/Body';
 import Footer from '../presentational/styled/Footer';
@@ -8,18 +7,16 @@ import Button from '../presentational/styled/Button';
 import NavigationBar from '../presentational/NavigationBar';
 import Stepper from '../presentational/Stepper';
 import { ChevronLeft } from '../presentational/Icon';
-import PaddedBox from '../presentational/styled/PaddedBox';
 import Schedule from '../presentational/Schedule';
+import Div from '../presentational/styled/Div';
 import { toggleProgramDay, setProgramDuration } from '../actions/actions';
 import DifficultyGauge from '../presentational/DifficultyGauge';
 import history from '../../util/history';
 
-const Div = styled(PaddedBox)`
-  text-align: left;
-  flex-shrink: 0;
-`;
-
 const mapStateToProps = (state, ownProps) => {
+  // This doesn't belong here, but it works. It's good for at least development-time
+  if (Object.keys(state.ui.createProgram.exercises).length === 0) history.push('/CreateProgram');
+
   return {
     program: state.ui.createProgram,
     exercises: state.entities.exercises,

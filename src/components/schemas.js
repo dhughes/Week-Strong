@@ -4,4 +4,7 @@ import { schema } from 'normalizr';
 const exercise = new schema.Entity('exercises');
 const exercises = [exercise];
 
+// schema for program
+alert('need to  define program schema');
+
 export { exercises };
