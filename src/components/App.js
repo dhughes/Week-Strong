@@ -3,7 +3,7 @@ import { Router, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import thunkMiddleware from 'redux-thunk';
+import ReduxThunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import PrivateRoute from './container/PrivateRoute';
 import LandingPage from './container/LandingPage';
@@ -19,7 +19,7 @@ import weekStrongApp from './reducers/reducers';
 import { fetchExercises } from './actions/actions';
 
 // create our redux store
-let store = createStore(weekStrongApp, applyMiddleware(thunkMiddleware, createLogger()));
+let store = createStore(weekStrongApp, applyMiddleware(ReduxThunk, createLogger()));
 store.dispatch(fetchExercises());
 
 const App = props =>

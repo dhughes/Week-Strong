@@ -9,7 +9,6 @@ import { ChevronLeft } from '../presentational/Icon';
 import Schedule from '../presentational/Schedule';
 import Button from '../presentational/styled/Button';
 import history from '../../util/history';
-import { createProgram } from '../actions/actions';
 
 const mapStateToProps = (state, ownProps) => {
   // This doesn't belong here, but it works. It's good for at least development-time
@@ -18,14 +17,6 @@ const mapStateToProps = (state, ownProps) => {
   return {
     program: state.ui.createProgram,
     exercises: state.entities.exercises
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    createProgram: program => {
-      dispatch(createProgram(program));
-    }
   };
 };
 
@@ -57,10 +48,7 @@ const Summary = props =>
       </Div>
     </Body>
     <Footer style={{ flexShrink: 0 }}>
-      <Button
-        className="default"
-        onClick={e => props.createProgram(props.createProgram, () => history.push('/FitnessTest'))}
-      >
+      <Button className="default" onClick={e => history.push('/FitnessTest')}>
         Start The Test!
       </Button>
       <Button onClick={e => history.push('/CreateProfile')}>
@@ -70,4 +58,4 @@ const Summary = props =>
 
   </Vbox>;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Summary);
+export default connect(mapStateToProps)(Summary);
