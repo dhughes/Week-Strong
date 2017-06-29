@@ -43,6 +43,10 @@ const DayBox = styled.div`
     background-color: ${theme.negative.lighten(1)};
   }
 
+  &.disabled{
+    border: 1px solid ${theme.primaryText.fade(0.75)};
+  }
+
 `;
 
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -54,7 +58,8 @@ const Day = props =>
       ${props.isWorkoutDay ? 'workoutDay' : ''}
       ${props.workedOut ? 'workedOut' : ''}
       ${props.missed ? 'missed' : ''}
-      ${props.isToday ? 'today' : ''}`}
+      ${props.isToday ? 'today' : ''}
+      ${props.disabled ? 'disabled' : ''}`}
     data-value={days.indexOf(props.day)}
     title={props.day}
     {...props}
@@ -63,7 +68,8 @@ const Day = props =>
   </DayBox>;
 
 Day.defaultProps = {
-  onClick: e => {}
+  onClick: e => {},
+  disabled: false
 };
 
 Day.propTypes = {
@@ -73,7 +79,8 @@ Day.propTypes = {
   missed: PropTypes.bool,
   isToday: PropTypes.bool,
   day: PropTypes.oneOf(days),
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  disabled: PropTypes.bool
 };
 
 export default Day;

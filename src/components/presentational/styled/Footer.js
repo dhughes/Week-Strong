@@ -5,7 +5,7 @@ import theme from '../../../util/theme';
 const Footer = styled(Vbox)`
   component: Footer;
   background-color: ${theme.footerBackground};
-  border-top: 2px solid ${theme.separator.darken(0.25)};
+  border-top: 2px solid ${theme.separator};
   padding: 0.5rem 1rem;
   overflow: visible;
   flex-shrink: 0;

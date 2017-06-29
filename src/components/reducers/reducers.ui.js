@@ -6,7 +6,11 @@ import {
   ADD_EXERCISE_TO_PROGRAM,
   REMOVE_EXERCISE_FROM_PROGRAM,
   TOGGLE_PROGRAM_DAY,
-  SET_PROGRAM_DURATION
+  SET_PROGRAM_DURATION,
+  EDIT_CREATE_PROFILE_FIELD,
+  VALIDATING_NEW_EMAIL,
+  VALIDATED_EMAIL,
+  VALIDATED_CREATE_PROFILE_FIELD
 } from '../actions/actions';
 
 // this relates to loading lists of exercises
@@ -20,8 +24,10 @@ function exerciseList(
   switch (action.type) {
     case REQUEST_EXERCISES:
       return Object.assign({}, state, { isFetching: true });
+
     case RECEIVE_EXERCISES:
       return Object.assign({}, state, { isFetching: false, items: action.exercises.result });
+
     default:
       return state;
   }
@@ -36,11 +42,11 @@ function createProgram(
   switch (action.type) {
     case SET_PROGRAM_DURATION:
       return Object.assign({}, state, { weeks: action.weeks });
+
     case TOGGLE_PROGRAM_DAY:
       if (state.selectedDays.includes(action.day)) {
         return Object.assign({}, state, { selectedDays: state.selectedDays.filter(day => day !== action.day) });
       } else {
-        console.log('add');
         return Object.assign({}, state, { selectedDays: [...state.selectedDays, action.day] });
       }
 
@@ -48,7 +54,7 @@ function createProgram(
       exercises = Object.assign({}, state.exercises, {
         [action.exerciseId]: action.goal
       });
-      console.log(exercises.length);
+
       return Object.assign({}, state, {
         exercises,
         selectionCount: Object.keys(exercises).length
@@ -63,6 +69,7 @@ function createProgram(
         exercises,
         selectionCount: Object.keys(exercises).length
       });
+
     default:
       return state;
   }
@@ -82,9 +89,60 @@ function exercise(state = { goals: {} }, action) {
     case CHANGE_EXERCISE_GOAL:
       goals = Object.assign({}, state.goals, { [action.exerciseId]: action.goal });
       return Object.assign({}, state, { goals });
+
     default:
       return state;
   }
 }
 
-export default combineReducers({ exerciseList, createProgram, exercise });
+// this relates to creating a Profile
+function createProfile(
+  state = {
+    name: '',
+    email: '',
+    password: '',
+    validation: {
+      name: { validating: false, valid: undefined },
+      email: { validating: false, valid: undefined },
+      password: { validating: false, valid: undefined }
+    }
+  },
+  action
+) {
+  let validation;
+  switch (action.type) {
+    case VALIDATED_CREATE_PROFILE_FIELD:
+      validation = Object.assign({}, state.validation, {
+        [action.name]: { validating: false, valid: action.isValid }
+      });
+
+      return Object.assign({}, state, { validation });
+
+    case VALIDATED_EMAIL:
+      validation = Object.assign({}, state.validation, {
+        email: { validating: false, valid: action.isValidEmail }
+      });
+      return Object.assign({}, state, { validation });
+
+    case VALIDATING_NEW_EMAIL:
+      validation = Object.assign({}, state.validation, {
+        email: { validating: true, valid: undefined }
+      });
+
+      return Object.assign({}, state, { validation });
+
+    case EDIT_CREATE_PROFILE_FIELD:
+      validation = Object.assign({}, state.validation, {
+        [action.name]: { validating: false, valid: undefined }
+      });
+      return Object.assign({}, state, {
+        [action.name]: action.value,
+        validation
+      });
+
+    default:
+      return state;
+  }
+}
+
+export default combineReducers({ exerciseList, createProgram, exercise, createProfile });

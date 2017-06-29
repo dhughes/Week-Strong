@@ -21,6 +21,7 @@ function entities(
   switch (action.type) {
     case RECEIVE_EXERCISES:
       return Object.assign({}, state, action.exercises.entities);
+
     default:
       return state;
   }
@@ -63,7 +64,7 @@ let exampleState = {
       }
     },
     programExercises: {
-      22: {
+      122: {
         id: 122,
         exerciseId: 321,
         goal: 55

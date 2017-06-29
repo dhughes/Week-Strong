@@ -8,19 +8,67 @@ class Schedule extends Component {
   render() {
     return (
       <Hbox justifyContent="space-between">
-        <Day isWorkoutDay={this.props.selectedDays.includes(0)} onClick={this.onDayClick} day="Sunday" inProgram />
-        <Day isWorkoutDay={this.props.selectedDays.includes(1)} onClick={this.onDayClick} day="Monday" inProgram />
-        <Day isWorkoutDay={this.props.selectedDays.includes(2)} onClick={this.onDayClick} day="Tuesday" inProgram />
-        <Day isWorkoutDay={this.props.selectedDays.includes(3)} onClick={this.onDayClick} day="Wednesday" inProgram />
-        <Day isWorkoutDay={this.props.selectedDays.includes(4)} onClick={this.onDayClick} day="Thursday" inProgram />
-        <Day isWorkoutDay={this.props.selectedDays.includes(5)} onClick={this.onDayClick} day="Friday" inProgram />
-        <Day isWorkoutDay={this.props.selectedDays.includes(6)} onClick={this.onDayClick} day="Saturday" inProgram />
+        <Day
+          disabled={this.props.disabled}
+          isWorkoutDay={this.props.selectedDays.includes(0)}
+          onClick={this.onDayClick}
+          day="Sunday"
+          inProgram
+        />
+        <Day
+          disabled={this.props.disabled}
+          isWorkoutDay={this.props.selectedDays.includes(1)}
+          onClick={this.onDayClick}
+          day="Monday"
+          inProgram
+        />
+        <Day
+          disabled={this.props.disabled}
+          isWorkoutDay={this.props.selectedDays.includes(2)}
+          onClick={this.onDayClick}
+          day="Tuesday"
+          inProgram
+        />
+        <Day
+          disabled={this.props.disabled}
+          isWorkoutDay={this.props.selectedDays.includes(3)}
+          onClick={this.onDayClick}
+          day="Wednesday"
+          inProgram
+        />
+        <Day
+          disabled={this.props.disabled}
+          isWorkoutDay={this.props.selectedDays.includes(4)}
+          onClick={this.onDayClick}
+          day="Thursday"
+          inProgram
+        />
+        <Day
+          disabled={this.props.disabled}
+          isWorkoutDay={this.props.selectedDays.includes(5)}
+          onClick={this.onDayClick}
+          day="Friday"
+          inProgram
+        />
+        <Day
+          disabled={this.props.disabled}
+          isWorkoutDay={this.props.selectedDays.includes(6)}
+          onClick={this.onDayClick}
+          day="Saturday"
+          inProgram
+        />
       </Hbox>
     );
   }
 }
+
+Schedule.defaultProps = {
+  disabled: false
+};
+
 Schedule.propTypes = {
-  selectedDays: PropTypes.arrayOf(PropTypes.number)
+  selectedDays: PropTypes.arrayOf(PropTypes.number),
+  disabled: PropTypes.bool
 };
 
 export default Schedule;

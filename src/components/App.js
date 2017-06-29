@@ -11,6 +11,7 @@ import CreateProgram from './container/CreateProgram';
 import Exercise from './container/Exercise';
 import SetDuration from './container/SetDuration';
 import Summary from './container/Summary';
+import CreateProfile from './container/CreateProfile';
 import Root from './presentational/styled/Root';
 import SplashPage from './presentational/SplashPage';
 import colors from '../util/colors';
@@ -33,6 +34,7 @@ const App = props =>
             <Route exact path="/Exercise/:id" component={Exercise} />
             <Route exact path="/SetDuration" component={SetDuration} />
             <Route exact path="/Summary" component={Summary} />
+            <Route exact path="/CreateProfile" component={CreateProfile} />
             <PrivateRoute exact path="/" component={LandingPage} />
           </Switch>
         </Root>

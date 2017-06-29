@@ -28,7 +28,7 @@ const Summary = props =>
       <Div>
         <h2>{props.program.weeks} Week Program:</h2>
 
-        <Schedule selectedDays={props.program.selectedDays} onDayClick={e => {}} />
+        <Schedule selectedDays={props.program.selectedDays} onDayClick={e => {}} disabled />
 
         <h2>{props.program.selectionCount} Exercises:</h2>
 

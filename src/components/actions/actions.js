@@ -13,6 +13,13 @@ export const REMOVE_EXERCISE_FROM_PROGRAM = 'REMOVE_EXERCISE_FROM_PROGRAM';
 export const TOGGLE_PROGRAM_DAY = 'TOGGLE_PROGRAM_DAY';
 export const SET_PROGRAM_DURATION = 'SET_PROGRAM_DURATION';
 
+export const EDIT_CREATE_PROFILE_FIELD = 'EDIT_CREATE_PROFILE_FIELD';
+export const VALIDATE_NEW_EMAIL = 'VALIDATE_NEW_EMAIL';
+export const VALIDATING_NEW_EMAIL = 'VALIDATING_NEW_EMAIL';
+export const VALIDATED_EMAIL = 'VALIDATED_EMAIL';
+export const VALIDATED_CREATE_PROFILE_FIELD = 'VALIDATED_CREATE_PROFILE_FIELD';
+export const CREATE_NEW_PROFILE = 'CREATE_NEW_PROFILE';
+
 function requestExercises() {
   return { type: REQUEST_EXERCISES };
 }
@@ -25,7 +32,7 @@ export function fetchExercises() {
   return function(dispatch) {
     dispatch(requestExercises());
 
-    return fetch('https://demo6463443.mockable.io/exercises')
+    return fetch('http://localhost:8080/exercises')
       .then(response => response.json(), error => console.log('An error occured.', error))
       .then(data => normalize(data, exercises))
       .then(exercises => dispatch(receiveExercises(exercises)));
@@ -50,4 +57,50 @@ export function toggleProgramDay(day) {
 
 export function setProgramDuration(weeks) {
   return { type: SET_PROGRAM_DURATION, weeks };
+}
+
+export function editCreateProfileFiled(name, value) {
+  return { type: EDIT_CREATE_PROFILE_FIELD, name, value };
+}
+
+let timerId = null;
+
+export function validateNewEmail(email) {
+  return function(dispatch) {
+    clearTimeout(timerId);
+
+    // wait 1 second before validating the email remotely to keep from hammering the server with each keypress.
+    timerId = setTimeout(() => {
+      console.log('validate email now...');
+
+      dispatch(validatingNewEmail());
+
+      return fetch(`http://localhost:8080/available?email=${email}`)
+        .then(response => response.json(), error => console.log('An error occured.', error))
+        .then(available => dispatch(validatedEmail(available)));
+    }, 750);
+  };
+}
+
+function validatingNewEmail() {
+  return { type: VALIDATING_NEW_EMAIL };
+}
+
+export function validatedEmail(isValidEmail) {
+  return { type: VALIDATED_EMAIL, isValidEmail };
+}
+
+export function validatedProfileField(name, isValid) {
+  return { type: VALIDATED_CREATE_PROFILE_FIELD, name, isValid };
+}
+
+export function createNewProfile(profile) {
+  console.log(
+    '1) create the profile in the state, 2) post the profile to the server to persist it remotely and then handle the response to update the user profile in state.'
+  );
+  // fetch(`http://localhost:8080/user`, {})
+  //   .then(response => response.json(), error => console.log('An error occured.', error))
+  //   .then(available => dispatch(validatedEmail(available)));
+
+  return { type: CREATE_NEW_PROFILE, profile };
 }

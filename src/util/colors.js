@@ -13,7 +13,7 @@ const colors = {
   background: '#FFFFFF',
   footerBackground: '#E9E9E9',
 
-  separator: '#DDDDDD',
+  separator: '#888888',
 
   positive: '#3F7F3F',
   negative: '#7F3F3F'
