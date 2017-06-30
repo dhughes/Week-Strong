@@ -8,7 +8,7 @@ import Button from '../presentational/styled/Button';
 import NavigationBar from '../presentational/NavigationBar';
 import Input from '../presentational/Input';
 import SectionBreak from '../presentational/styled/SectionBreak';
-import { editCreateProfileFiled, validateNewEmail, validatedProfileField, createNewProfile } from '../actions/actions';
+import { editCreateProfileFiled, validateNewEmail, validatedProfileField, createNewUser } from '../actions/actions';
 
 const mapStateToProps = (state, ownProps) => {
   // This doesn't belong here, but it works. It's good for at least development-time
@@ -36,7 +36,7 @@ const mapDispatchToProps = dispatch => {
     },
     handleCreateProfileSubmit: (e, profile) => {
       e.preventDefault();
-      dispatch(createNewProfile({ name: profile.name, email: profile.email, password: profile.password }));
+      dispatch(createNewUser({ id: undefined, name: profile.name, email: profile.email, password: profile.password }));
     }
   };
 };

@@ -1,11 +1,14 @@
 import { combineReducers } from 'redux';
 import ui from './reducers.ui.js';
-import { RECEIVE_EXERCISES } from '../actions/actions';
+import { RECEIVE_EXERCISES, CREATE_NEW_USER, SAVED_USER } from '../actions/actions';
 
 // this reducer relates to who the current user is.
 // its state is just a number indicating an entity
 function user(state = null, action) {
   switch (action.type) {
+    case (CREATE_NEW_USER, SAVED_USER):
+      return Object.assign({}, state, action.user);
+
     default:
       return state;
   }

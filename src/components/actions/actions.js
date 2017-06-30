@@ -18,7 +18,8 @@ export const VALIDATE_NEW_EMAIL = 'VALIDATE_NEW_EMAIL';
 export const VALIDATING_NEW_EMAIL = 'VALIDATING_NEW_EMAIL';
 export const VALIDATED_EMAIL = 'VALIDATED_EMAIL';
 export const VALIDATED_CREATE_PROFILE_FIELD = 'VALIDATED_CREATE_PROFILE_FIELD';
-export const CREATE_NEW_PROFILE = 'CREATE_NEW_PROFILE';
+export const CREATE_NEW_USER = 'CREATE_NEW_USER';
+export const SAVED_USER = 'SAVED_USER';
 
 function requestExercises() {
   return { type: REQUEST_EXERCISES };
@@ -33,7 +34,7 @@ export function fetchExercises() {
     dispatch(requestExercises());
 
     return fetch('http://localhost:8080/exercises')
-      .then(response => response.json(), error => console.log('An error occured.', error))
+      .then(response => response.json(), error => console.log('An error occured fetching exercises.', error))
       .then(data => normalize(data, exercises))
       .then(exercises => dispatch(receiveExercises(exercises)));
   };
@@ -76,7 +77,7 @@ export function validateNewEmail(email) {
       dispatch(validatingNewEmail());
 
       return fetch(`http://localhost:8080/available?email=${email}`)
-        .then(response => response.json(), error => console.log('An error occured.', error))
+        .then(response => response.json(), error => console.log('An error occured validating email.', error))
         .then(available => dispatch(validatedEmail(available)));
     }, 750);
   };
@@ -94,13 +95,24 @@ export function validatedProfileField(name, isValid) {
   return { type: VALIDATED_CREATE_PROFILE_FIELD, name, isValid };
 }
 
-export function createNewProfile(profile) {
-  console.log(
-    '1) create the profile in the state, 2) post the profile to the server to persist it remotely and then handle the response to update the user profile in state.'
-  );
-  // fetch(`http://localhost:8080/user`, {})
-  //   .then(response => response.json(), error => console.log('An error occured.', error))
-  //   .then(available => dispatch(validatedEmail(available)));
+export function createNewUser(user) {
+  return function(dispatch) {
+    fetch(`http://localhost:8080/user`, {
+      method: 'post',
+      body: JSON.stringify(user),
+      headers: new Headers({
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      })
+    })
+      .then(response => response.json(), error => console.log('An error occured saving a new user profile.', error))
+      .then(user => dispatch(savedUser(user)));
 
-  return { type: CREATE_NEW_PROFILE, profile };
+    return { type: CREATE_NEW_USER, user };
+  };
+}
+
+function savedUser(user) {
+  console.log('saved user!!');
+  return { type: SAVED_USER, user };
 }
