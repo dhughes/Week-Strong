@@ -25,7 +25,7 @@ const Description = styled.span`
 const mapStateToProps = (state, ownProps) => {
   return {
     isFetching: state.ui.exerciseList.isFetching,
-    exercise: state.ui.exerciseList.isFetching ? {} : state.entities.exercises[ownProps.match.params.id],
+    exercise: state.ui.exerciseList.isFetching ? {} : state.entities.exercise[ownProps.match.params.id],
     goal: state.ui.exerciseList.isFetching ? null : state.ui.exercise.goals[ownProps.match.params.id],
     isSelected: state.ui.createProgram.exercises[ownProps.match.params.id]
   };

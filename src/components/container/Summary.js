@@ -16,7 +16,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     program: state.ui.createProgram,
-    exercises: state.entities.exercises
+    exercises: state.entities.exercise
   };
 };
 

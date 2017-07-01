@@ -81,7 +81,7 @@ function exercise(state = { goals: {} }, action) {
   switch (action.type) {
     case RECEIVE_EXERCISES:
       goals = action.exercises.result.reduce((acc, id) => {
-        acc[id] = action.exercises.entities.exercises[id].defaultGoal;
+        acc[id] = action.exercises.entities.exercise[id].defaultGoal;
         return acc;
       }, {});
       return Object.assign({}, state, { goals });

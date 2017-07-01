@@ -1,14 +1,12 @@
 import { combineReducers } from 'redux';
 import ui from './reducers.ui.js';
-import { RECEIVE_EXERCISES, CREATE_NEW_USER, SAVED_USER } from '../actions/actions';
+import merge from 'lodash/merge';
+import { RECEIVE_EXERCISES, RECEIVE_NEW_USER } from '../actions/actions';
 
 // this reducer relates to who the current user is.
 // its state is just a number indicating an entity
 function user(state = null, action) {
   switch (action.type) {
-    case (CREATE_NEW_USER, SAVED_USER):
-      return Object.assign({}, state, action.user);
-
     default:
       return state;
   }
@@ -16,14 +14,18 @@ function user(state = null, action) {
 
 function entities(
   state = {
-    users: [],
-    exercises: []
+    user: [],
+    exercise: [],
+    goal: [],
+    program: []
   },
   action
 ) {
   switch (action.type) {
+    case RECEIVE_NEW_USER:
+      return merge({}, state, action.user.entities);
     case RECEIVE_EXERCISES:
-      return Object.assign({}, state, action.exercises.entities);
+      return merge({}, state, action.exercises.entities);
 
     default:
       return state;
@@ -64,9 +66,10 @@ let exampleState = {
       11: {
         id: 11,
         userId: 123
+        // fitness test?
       }
     },
-    programExercises: {
+    programGoals: {
       122: {
         id: 122,
         exerciseId: 321,

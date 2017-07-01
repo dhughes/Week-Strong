@@ -19,7 +19,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     program: state.ui.createProgram,
-    exercises: state.entities.exercises,
+    exercises: state.entities.exercise,
     canContinue: state.ui.createProgram.selectedDays.length === 3
   };
 };

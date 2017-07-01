@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { normalize } from 'normalizr';
-import { exercises } from '../schemas';
+import { exercises as exercisesSchema, user as userSchema } from '../schemas';
 
 export const REQUEST_EXERCISES = 'REQUEST_EXERCISES';
 export const RECEIVE_EXERCISES = 'RECEIVE_EXERCISES';
@@ -18,8 +18,9 @@ export const VALIDATE_NEW_EMAIL = 'VALIDATE_NEW_EMAIL';
 export const VALIDATING_NEW_EMAIL = 'VALIDATING_NEW_EMAIL';
 export const VALIDATED_EMAIL = 'VALIDATED_EMAIL';
 export const VALIDATED_CREATE_PROFILE_FIELD = 'VALIDATED_CREATE_PROFILE_FIELD';
-export const CREATE_NEW_USER = 'CREATE_NEW_USER';
-export const SAVED_USER = 'SAVED_USER';
+
+export const SAVING_NEW_USER = 'SAVING_NEW_USER';
+export const RECEIVE_NEW_USER = 'RECEIVE_NEW_USER';
 
 function requestExercises() {
   return { type: REQUEST_EXERCISES };
@@ -35,7 +36,7 @@ export function fetchExercises() {
 
     return fetch('http://localhost:8080/exercises')
       .then(response => response.json(), error => console.log('An error occured fetching exercises.', error))
-      .then(data => normalize(data, exercises))
+      .then(data => normalize(data, exercisesSchema))
       .then(exercises => dispatch(receiveExercises(exercises)));
   };
 }
@@ -97,6 +98,8 @@ export function validatedProfileField(name, isValid) {
 
 export function createNewUser(user) {
   return function(dispatch) {
+    dispatch(savingNewUser());
+
     fetch(`http://localhost:8080/user`, {
       method: 'post',
       body: JSON.stringify(user),
@@ -106,13 +109,15 @@ export function createNewUser(user) {
       })
     })
       .then(response => response.json(), error => console.log('An error occured saving a new user profile.', error))
-      .then(user => dispatch(savedUser(user)));
-
-    return { type: CREATE_NEW_USER, user };
+      .then(data => normalize(data, userSchema))
+      .then(data => dispatch(receivedNewUser(data)));
   };
 }
 
-function savedUser(user) {
-  console.log('saved user!!');
-  return { type: SAVED_USER, user };
+function savingNewUser() {
+  return { type: SAVING_NEW_USER };
+}
+
+function receivedNewUser(user) {
+  return { type: RECEIVE_NEW_USER, user };
 }

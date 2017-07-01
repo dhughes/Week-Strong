@@ -16,6 +16,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     profile: state.ui.createProfile,
+    program: state.ui.createProgram,
     canContinue: Object.keys(state.ui.createProfile.validation).reduce(
       (acc, field) => acc && state.ui.createProfile.validation[field].valid,
       true
@@ -34,9 +35,17 @@ const mapDispatchToProps = dispatch => {
         dispatch(validatedProfileField(target.getAttribute('name'), target.validity.valid));
       }
     },
-    handleCreateProfileSubmit: (e, profile) => {
+    handleCreateProfileSubmit: (e, profile, program) => {
       e.preventDefault();
-      dispatch(createNewUser({ id: undefined, name: profile.name, email: profile.email, password: profile.password }));
+      dispatch(
+        createNewUser({
+          id: undefined,
+          name: profile.name,
+          email: profile.email,
+          password: profile.password,
+          program: program
+        })
+      );
     }
   };
 };
@@ -86,7 +95,7 @@ const CreateProfile = props =>
           <Button
             disabled={!props.canContinue}
             className="default"
-            onClick={e => props.handleCreateProfileSubmit(e, props.profile)}
+            onClick={e => props.handleCreateProfileSubmit(e, props.profile, props.program)}
           >
             Create Profile
           </Button>

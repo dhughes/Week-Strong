@@ -13,7 +13,7 @@ import history from '../../util/history';
 const mapStateToProps = (state, ownProps) => {
   return {
     isFetching: state.ui.exerciseList.isFetching,
-    exercises: state.ui.exerciseList.items.map(id => state.entities.exercises[id]),
+    exercises: state.ui.exerciseList.items.map(id => state.entities.exercise[id]),
     program: state.ui.createProgram,
     canContinue: state.ui.createProgram.selectionCount > 0 && state.ui.createProgram.selectionCount <= 4
   };
