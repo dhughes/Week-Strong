@@ -9,6 +9,7 @@ import NavigationBar from '../presentational/NavigationBar';
 import Input from '../presentational/Input';
 import SectionBreak from '../presentational/styled/SectionBreak';
 import { editCreateProfileFiled, validateNewEmail, validatedProfileField, createNewUser } from '../actions/actions';
+import history from '../../util/history';
 
 const mapStateToProps = (state, ownProps) => {
   // This doesn't belong here, but it works. It's good for at least development-time
@@ -38,13 +39,16 @@ const mapDispatchToProps = dispatch => {
     handleCreateProfileSubmit: (e, profile, program) => {
       e.preventDefault();
       dispatch(
-        createNewUser({
-          id: undefined,
-          name: profile.name,
-          email: profile.email,
-          password: profile.password,
-          program: program
-        })
+        createNewUser(
+          {
+            id: undefined,
+            name: profile.name,
+            email: profile.email,
+            password: profile.password,
+            program: program
+          },
+          () => history.push('/')
+        )
       );
     }
   };

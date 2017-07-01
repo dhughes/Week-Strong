@@ -9,11 +9,11 @@ import History from '../presentational/History';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    user: state.entities.users[state.user]
+    user: state.entities.user[state.user]
   };
 };
 
-const LandingPage = props => (
+const LandingPage = props =>
   <Vbox>
     <NavigationBar
       leftIcon={Pencil}
@@ -25,7 +25,7 @@ const LandingPage = props => (
     <Body padded={false} justifyContent="space-between">
       <Vbox>
         <h2>Welcome back, {props.user.name.split(' ')[0]}</h2>
-        <History
+        {/* <History
           beginDate={new Date(2017, 4, 28)} // this is the sunday before the created date
           endDate={new Date(2017, 5, 24)} // this is the end of the week of the last history record
           createdDate={new Date(2017, 5, 1)}
@@ -41,7 +41,7 @@ const LandingPage = props => (
             new Date(2017, 5, 16),
             new Date(2017, 5, 19)
           ]}
-        />
+        /> */}
       </Vbox>
 
       <div>
@@ -53,8 +53,7 @@ const LandingPage = props => (
         <p>Stats go here</p>
       </Vbox>
     </Body>
-  </Vbox>
-);
+  </Vbox>;
 
 LandingPage.propTypes = {
   user: PropTypes.shape({

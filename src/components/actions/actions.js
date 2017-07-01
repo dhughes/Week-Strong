@@ -77,7 +77,7 @@ export function validateNewEmail(email) {
 
       dispatch(validatingNewEmail());
 
-      return fetch(`http://localhost:8080/available?email=${email}`)
+      return fetch(`http://localhost:8080/email/available?email=${email}`)
         .then(response => response.json(), error => console.log('An error occured validating email.', error))
         .then(available => dispatch(validatedEmail(available)));
     }, 750);
@@ -96,7 +96,7 @@ export function validatedProfileField(name, isValid) {
   return { type: VALIDATED_CREATE_PROFILE_FIELD, name, isValid };
 }
 
-export function createNewUser(user) {
+export function createNewUser(user, callback) {
   return function(dispatch) {
     dispatch(savingNewUser());
 
@@ -110,7 +110,8 @@ export function createNewUser(user) {
     })
       .then(response => response.json(), error => console.log('An error occured saving a new user profile.', error))
       .then(data => normalize(data, userSchema))
-      .then(data => dispatch(receivedNewUser(data)));
+      .then(data => dispatch(receivedNewUser(data)))
+      .then(() => callback());
   };
 }
 
