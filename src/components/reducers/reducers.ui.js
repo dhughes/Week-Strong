@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import merge from 'lodash/merge';
 import {
   REQUEST_EXERCISES,
   RECEIVE_EXERCISES,
@@ -10,8 +11,25 @@ import {
   EDIT_CREATE_PROFILE_FIELD,
   VALIDATING_NEW_EMAIL,
   VALIDATED_EMAIL,
-  VALIDATED_CREATE_PROFILE_FIELD
+  VALIDATED_CREATE_PROFILE_FIELD,
+  EDIT_LOGIN_PAGE_FIELD,
+  LOGIN_FAILED,
+  LOGIN_SUCCEEDED
 } from '../actions/actions';
+
+// this relates to the login page
+function loginPage(state = { email: '', password: '', isFetching: false, loginFailed: false }, action) {
+  switch (action.type) {
+    case LOGIN_SUCCEEDED:
+      return merge({}, state, { password: '', isFetching: false, loginFailed: false });
+    case LOGIN_FAILED:
+      return merge({}, state, { password: '', isFetching: false, loginFailed: true });
+    case EDIT_LOGIN_PAGE_FIELD:
+      return merge({}, state, { [action.name]: action.value });
+    default:
+      return state;
+  }
+}
 
 // this relates to loading lists of exercises
 function exerciseList(
@@ -145,4 +163,4 @@ function createProfile(
   }
 }
 
-export default combineReducers({ exerciseList, createProgram, exercise, createProfile });
+export default combineReducers({ exerciseList, createProgram, exercise, createProfile, loginPage });

@@ -12,6 +12,7 @@ import Exercise from './container/Exercise';
 import SetDuration from './container/SetDuration';
 import Summary from './container/Summary';
 import CreateProfile from './container/CreateProfile';
+import LoginPage from './container/LoginPage';
 import Root from './presentational/styled/Root';
 import SplashPage from './presentational/SplashPage';
 import colors from '../util/colors';
@@ -35,6 +36,7 @@ const App = props =>
             <Route exact path="/SetDuration" component={SetDuration} />
             <Route exact path="/Summary" component={Summary} />
             <Route exact path="/CreateProfile" component={CreateProfile} />
+            <Route exact path="/LoginPage" component={LoginPage} />
             <PrivateRoute exact path="/" component={LandingPage} />
           </Switch>
         </Root>

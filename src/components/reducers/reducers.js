@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import ui from './reducers.ui.js';
 import merge from 'lodash/merge';
-import { RECEIVE_EXERCISES, RECEIVE_NEW_USER } from '../actions/actions';
+import { RECEIVE_EXERCISES, RECEIVE_NEW_USER, LOGIN_SUCCEEDED } from '../actions/actions';
 
 // this reducer relates to who the current user is.
 // its state is just a number indicating an entity
@@ -24,6 +24,7 @@ function entities(
   action
 ) {
   switch (action.type) {
+    case LOGIN_SUCCEEDED:
     case RECEIVE_NEW_USER:
       return merge({}, state, action.user.entities);
 

@@ -22,6 +22,10 @@ export const VALIDATED_CREATE_PROFILE_FIELD = 'VALIDATED_CREATE_PROFILE_FIELD';
 export const SAVING_NEW_USER = 'SAVING_NEW_USER';
 export const RECEIVE_NEW_USER = 'RECEIVE_NEW_USER';
 
+export const EDIT_LOGIN_PAGE_FIELD = 'EDIT_LOGIN_PAGE_FIELD';
+export const LOGIN_FAILED = 'LOGIN_FAILED';
+export const LOGIN_SUCCEEDED = 'LOGIN_SUCCEEDED';
+
 function requestExercises() {
   return { type: REQUEST_EXERCISES };
 }
@@ -121,4 +125,49 @@ function savingNewUser() {
 
 function receivedNewUser(user) {
   return { type: RECEIVE_NEW_USER, user };
+}
+
+export function editLoginPageFiled(name, value) {
+  return { type: EDIT_LOGIN_PAGE_FIELD, name, value };
+}
+
+export function login(email, password) {
+  return function(dispatch) {
+    //dispatch(loggingIn());
+
+    var form = new FormData();
+    form.append('email', email);
+    form.append('password', password);
+
+    return fetch('http://localhost:8080/user/authenticate', {
+      method: 'post',
+      body: form,
+      headers: new Headers({
+        Accept: 'application/json'
+      })
+    })
+      .then(response => {
+        if (response.status === 200) {
+          // the user is authenticated!
+          return response.json();
+        } else {
+          dispatch(loginFailed());
+          console.log('Received ' + response.status + ' from project sync.');
+        }
+      })
+      .then(data => {
+        console.log(data);
+        return data;
+      })
+      .then(data => normalize(data, userSchema))
+      .then(user => dispatch(loginSucceeded(user)));
+  };
+}
+
+function loginFailed() {
+  return { type: LOGIN_FAILED };
+}
+
+function loginSucceeded(user) {
+  return { type: LOGIN_SUCCEEDED, user };
 }

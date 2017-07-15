@@ -18,16 +18,15 @@ const ButtonContainer = styled(Vbox)`
   }
 `;
 
-const SplashPage = props => (
+const SplashPage = props =>
   <Body>
     <LogoContainer>
       <img src={logo} alt="Week-Strong logo" />
     </LogoContainer>
     <ButtonContainer>
       <LinkButton to="/CreateProgram" label="Get Started Now" className="default" />
-      <LinkButton to="/login" label="Login" />
+      <LinkButton to="/LoginPage" label="Login" />
     </ButtonContainer>
-  </Body>
-);
+  </Body>;
 
 export default SplashPage;

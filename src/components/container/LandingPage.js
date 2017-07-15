@@ -5,7 +5,6 @@ import { Vbox } from '../presentational/Box';
 import Body from '../presentational/styled/Body';
 import NavigationBar from '../presentational/NavigationBar';
 import { Pencil, Settings } from '../presentational/Icon';
-import History from '../presentational/History';
 
 const mapStateToProps = (state, ownProps) => {
   return {

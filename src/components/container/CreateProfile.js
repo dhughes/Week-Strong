@@ -56,12 +56,12 @@ const mapDispatchToProps = dispatch => {
 
 const CreateProfile = props =>
   <Vbox>
-    <NavigationBar leftBack leftIcon={<ChevronLeft />} title="Create Your Profile" />
+    <NavigationBar leftTo="/Summary" leftIcon={ChevronLeft} title="Create Your Profile" />
     <Body justifyContent="center">
       <LinkButton to="/facebook" icon={<Facebook />} label="Sign In With Facebook" className="facebook" />
       <LinkButton to="/google" icon={<Google />} label="Sign In With Google" className="google" />
       <SectionBreak />
-      <form onSubmit={this.handleCreateProfileSubmit}>
+      <form onSubmit={e => props.handleCreateProfileSubmit(e, props.profile, props.program)}>
         <Vbox>
           <Input
             type="text"
@@ -96,11 +96,7 @@ const CreateProfile = props =>
             isValid={props.profile.validation['password'] && props.profile.validation['password'].valid}
             placeholder="Password"
           />
-          <Button
-            disabled={!props.canContinue}
-            className="default"
-            onClick={e => props.handleCreateProfileSubmit(e, props.profile, props.program)}
-          >
+          <Button disabled={!props.canContinue} className="default">
             Create Profile
           </Button>
         </Vbox>
