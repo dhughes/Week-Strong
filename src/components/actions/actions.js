@@ -39,10 +39,21 @@ export function fetchExercises() {
   return function(dispatch) {
     dispatch(requestExercises());
 
-    return fetch('http://localhost:8080/exercises')
-      .then(response => response.json(), error => console.log('An error occured fetching exercises.', error))
-      .then(data => normalize(data, exercisesSchema))
-      .then(exercises => dispatch(receiveExercises(exercises)));
+    return fetch('http://localhost:8080/exercises').then(
+      response => {
+        if (response.status === 200) {
+          response
+            .json()
+            .then(data => normalize(data, exercisesSchema))
+            .then(exercises => dispatch(receiveExercises(exercises)));
+        } else {
+          // todo: handle non-success. perhaps broadcast a message so that the exercise list doesn't look like it's loading forever
+          console.log(`Received ${response.status} when fetching exercises.`);
+        }
+      },
+      // todo: find a way to handle this
+      error => console.log('An error occured fetching exercises.', error)
+    );
   };
 }
 
@@ -82,9 +93,18 @@ export function validateNewEmail(email) {
 
       dispatch(validatingNewEmail());
 
-      return fetch(`http://localhost:8080/email/available?email=${email}`)
-        .then(response => response.json(), error => console.log('An error occured validating email.', error))
-        .then(available => dispatch(validatedEmail(available)));
+      return fetch(`http://localhost:8080/email/available?email=${email}`).then(
+        response => {
+          if (response.status === 200) {
+            response.json().then(available => dispatch(validatedEmail(available)));
+          } else {
+            // todo: handle the situation where this request fails. perhaps show a message saying there is a big-bad problem?
+            console.log(`Received ${response.status} when validating email.`);
+          }
+        },
+        // todo: find a way to handle this
+        error => console.log('An error occured validating email.', error)
+      );
     }, 750);
   };
 }
@@ -121,9 +141,10 @@ export function createNewUser(user) {
           });
         } else {
           // todo: handle situations where the user isn't created successfully
-          console.log('There was an error creating the new user');
+          console.log(`Received ${response.status} when posting new user.`);
         }
       },
+      // todo: find a way to handle this
       error => console.log('An error occured saving a new user profile.', error)
     );
   };
@@ -155,27 +176,31 @@ export function login(email, password) {
       headers: new Headers({
         Accept: 'application/json'
       })
-    }).then(response => {
-      if (response.status === 200) {
-        // the user is authenticated!
-        response
-          .json()
-          .then(data => {
-            console.log(data);
-            return data;
-          })
-          .then(data => normalize(data, userSchema))
-          .then(user => {
-            // update the ui
-            dispatch(loginSucceeded(user));
-            // redirect to the landing page
-            dispatch(push('/'));
-          });
-      } else {
-        dispatch(loginFailed());
-        console.log('Received ' + response.status + ' from project sync.');
-      }
-    });
+    }).then(
+      response => {
+        if (response.status === 200) {
+          // the user is authenticated!
+          response
+            .json()
+            .then(data => {
+              console.log(data);
+              return data;
+            })
+            .then(data => normalize(data, userSchema))
+            .then(user => {
+              // update the ui
+              dispatch(loginSucceeded(user));
+              // redirect to the landing page
+              dispatch(push('/'));
+            });
+        } else {
+          dispatch(loginFailed());
+          console.log('Received ' + response.status + ' from project sync.');
+        }
+      },
+      // todo: find a way to handle this
+      error => console.log('An error occured saving a new user profile.', error)
+    );
   };
 }
 
