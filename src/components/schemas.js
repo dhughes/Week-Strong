@@ -22,7 +22,7 @@ const program = new schema.Entity(
       // goals don't have their own ID. This generates a unique id for the goal
       // based on the program's id and the exercise's id.
       const goals = value.goals.map(goal => merge({}, goal, { id: `${value.id}-${goal.exercise.id}` }));
-      return merge({}, value, { goals });
+      return merge({}, value, { goals, created: new Date(`${value.created} 0:0:0:`) });
     }
   }
 );

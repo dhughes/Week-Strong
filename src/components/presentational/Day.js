@@ -21,35 +21,34 @@ const DayBox = styled.div`
 
   &.notInProgram {
     opacity: 0.25;
-  };
+  }
 
-  &.workoutDay{
+  &.workoutDay {
     background-color: ${theme.positive.lighten(1.25)};
   }
 
-  &.workedOut{
+  &.workedOut {
     background-color: ${theme.positive};
     color: ${theme.primaryText.negate()};
   }
 
-  &.today{
+  &.today {
     font-weight: bold;
     border: 2px solid ${theme.primaryText};
     box-shadow: 0px 0px 0px 2px ${theme.primaryText};
     z-index: 1;
   }
 
-  &.missed{
+  &.missed {
     background-color: ${theme.negative.lighten(1)};
   }
 
-  &.disabled{
+  &.disabled {
     border: 1px solid ${theme.primaryText.fade(0.75)};
   }
-
 `;
 
-const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+export const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 const Day = props =>
   <DayBox

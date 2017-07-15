@@ -72,12 +72,13 @@ const LoginPage = props =>
             placeholder="Password"
           />
 
-          <Button disabled={!props.canContinue} className="default">Login</Button>
+          <Button disabled={!props.canContinue} className="default">
+            Login
+          </Button>
           <TextLink to="/ForgotPassword">Forgot your password?</TextLink>
         </Vbox>
       </form>
     </Body>
-
   </Vbox>;
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

@@ -1,11 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import ReduxThunk from 'redux-thunk';
-import { createLogger } from 'redux-logger';
-import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
+import { ConnectedRouter } from 'react-router-redux';
 import PrivateRoute from './container/PrivateRoute';
 import LandingPage from './container/LandingPage';
 import CreateProgram from './container/CreateProgram';
@@ -18,15 +15,9 @@ import Root from './presentational/styled/Root';
 import SplashPage from './presentational/SplashPage';
 import colors from '../util/colors';
 import history from '../util/history';
-import weekStrongApp from './reducers/reducers';
-import { fetchExercises } from './actions/actions';
-
-// create our redux store
-let store = createStore(weekStrongApp, applyMiddleware(ReduxThunk, createLogger(), routerMiddleware(history)));
-store.dispatch(fetchExercises());
 
 const App = props =>
-  <Provider store={store}>
+  <Provider store={props.store}>
     <ThemeProvider theme={colors}>
       <ConnectedRouter history={history}>
         <Root>
