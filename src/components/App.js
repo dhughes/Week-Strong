@@ -1,10 +1,11 @@
 import React from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
+import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import PrivateRoute from './container/PrivateRoute';
 import LandingPage from './container/LandingPage';
 import CreateProgram from './container/CreateProgram';
@@ -21,13 +22,13 @@ import weekStrongApp from './reducers/reducers';
 import { fetchExercises } from './actions/actions';
 
 // create our redux store
-let store = createStore(weekStrongApp, applyMiddleware(ReduxThunk, createLogger()));
+let store = createStore(weekStrongApp, applyMiddleware(ReduxThunk, createLogger(), routerMiddleware(history)));
 store.dispatch(fetchExercises());
 
 const App = props =>
   <Provider store={store}>
     <ThemeProvider theme={colors}>
-      <Router history={history}>
+      <ConnectedRouter history={history}>
         <Root>
           <Switch>
             <Route exact path="/SplashPage" component={SplashPage} />
@@ -40,7 +41,7 @@ const App = props =>
             <PrivateRoute exact path="/" component={LandingPage} />
           </Switch>
         </Root>
-      </Router>
+      </ConnectedRouter>
     </ThemeProvider>
   </Provider>;
 

@@ -1,4 +1,6 @@
 import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
+
 import ui from './reducers.ui.js';
 import merge from 'lodash/merge';
 import { RECEIVE_EXERCISES, RECEIVE_NEW_USER, LOGIN_SUCCEEDED } from '../actions/actions';
@@ -7,6 +9,7 @@ import { RECEIVE_EXERCISES, RECEIVE_NEW_USER, LOGIN_SUCCEEDED } from '../actions
 // its state is just a number indicating an entity
 function user(state = null, action) {
   switch (action.type) {
+    case LOGIN_SUCCEEDED:
     case RECEIVE_NEW_USER:
       return action.user.result;
     default:
@@ -36,6 +39,6 @@ function entities(
   }
 }
 
-const weekStrongApp = combineReducers({ entities, user, ui });
+const weekStrongApp = combineReducers({ entities, user, ui, routing: routerReducer });
 
 export default weekStrongApp;

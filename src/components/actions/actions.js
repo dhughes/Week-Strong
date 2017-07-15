@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { normalize } from 'normalizr';
+import { push } from 'react-router-redux';
 import { exercises as exercisesSchema, user as userSchema } from '../schemas';
 
 export const REQUEST_EXERCISES = 'REQUEST_EXERCISES';
@@ -100,7 +101,7 @@ export function validatedProfileField(name, isValid) {
   return { type: VALIDATED_CREATE_PROFILE_FIELD, name, isValid };
 }
 
-export function createNewUser(user, callback) {
+export function createNewUser(user) {
   return function(dispatch) {
     dispatch(savingNewUser());
 
@@ -111,11 +112,20 @@ export function createNewUser(user, callback) {
         Accept: 'application/json',
         'Content-Type': 'application/json'
       })
-    })
-      .then(response => response.json(), error => console.log('An error occured saving a new user profile.', error))
-      .then(data => normalize(data, userSchema))
-      .then(data => dispatch(receivedNewUser(data)))
-      .then(() => callback());
+    }).then(
+      response => {
+        if (response.status === 200) {
+          response.json().then(data => normalize(data, userSchema)).then(data => {
+            dispatch(receivedNewUser(data));
+            dispatch(push('/'));
+          });
+        } else {
+          // todo: handle situations where the user isn't created successfully
+          console.log('There was an error creating the new user');
+        }
+      },
+      error => console.log('An error occured saving a new user profile.', error)
+    );
   };
 }
 
@@ -145,22 +155,27 @@ export function login(email, password) {
       headers: new Headers({
         Accept: 'application/json'
       })
-    })
-      .then(response => {
-        if (response.status === 200) {
-          // the user is authenticated!
-          return response.json();
-        } else {
-          dispatch(loginFailed());
-          console.log('Received ' + response.status + ' from project sync.');
-        }
-      })
-      .then(data => {
-        console.log(data);
-        return data;
-      })
-      .then(data => normalize(data, userSchema))
-      .then(user => dispatch(loginSucceeded(user)));
+    }).then(response => {
+      if (response.status === 200) {
+        // the user is authenticated!
+        response
+          .json()
+          .then(data => {
+            console.log(data);
+            return data;
+          })
+          .then(data => normalize(data, userSchema))
+          .then(user => {
+            // update the ui
+            dispatch(loginSucceeded(user));
+            // redirect to the landing page
+            dispatch(push('/'));
+          });
+      } else {
+        dispatch(loginFailed());
+        console.log('Received ' + response.status + ' from project sync.');
+      }
+    });
   };
 }
 

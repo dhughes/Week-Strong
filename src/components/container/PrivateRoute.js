@@ -2,9 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 
-const mapStateToProps = (state, ownProps) => ({
-  loggedIn: state.user !== null
-});
+const mapStateToProps = (state, ownProps) => {
+  console.log(ownProps);
+  return {
+    loggedIn: state.user !== null
+  };
+};
 
 const PrivateRoute = ({ component: Component, loggedIn, ...rest }) => {
   console.log(loggedIn);
