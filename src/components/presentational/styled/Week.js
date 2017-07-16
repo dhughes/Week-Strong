@@ -13,6 +13,10 @@ const Week = styled(Vbox)`
     font-size: 0.9rem;
     color: ${theme.hintText};
   }
+
+  & span.date{
+    font-size: 0.72rem;
+  }
 `;
 
 export default Week;

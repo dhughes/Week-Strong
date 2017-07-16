@@ -17,9 +17,10 @@ const DayBox = styled.div`
   line-height: 2.5rem;
   height: 2.5rem;
   padding: 0;
-  margin: auto 0.25rem 0.25rem 0.25rem;
+  margin: 0.25rem 0.25rem 0.25rem 0.25rem;
 
-  &.notInProgram {
+  &.notInProgram,
+  &.afterToday {
     opacity: 0.25;
   }
 
@@ -30,6 +31,10 @@ const DayBox = styled.div`
   &.workedOut {
     background-color: ${theme.positive};
     color: ${theme.primaryText.negate()};
+  }
+
+  &.fitnessTestDay {
+    opacity: 1;
   }
 
   &.today {
@@ -46,9 +51,28 @@ const DayBox = styled.div`
   &.disabled {
     border: 1px solid ${theme.primaryText.fade(0.75)};
   }
+
+  &.beforeStart {
+    border-width: 2px;
+    border-style: dotted;
+  }
 `;
 
 export const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+export const months = [
+  'January',
+  'Febuary',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+];
 
 const Day = props =>
   <DayBox
@@ -58,6 +82,9 @@ const Day = props =>
       ${props.workedOut ? 'workedOut' : ''}
       ${props.missed ? 'missed' : ''}
       ${props.isToday ? 'today' : ''}
+      ${props.isBeforeStart ? 'beforeStart' : ''}
+      ${props.isFitnessTestDay ? 'fitnessTestDay' : ''}
+      ${props.isAfterToday ? 'afterToday' : ''}
       ${props.disabled ? 'disabled' : ''}`}
     data-value={days.indexOf(props.day)}
     title={props.day}
@@ -79,7 +106,10 @@ Day.propTypes = {
   isToday: PropTypes.bool,
   day: PropTypes.oneOf(days),
   onClick: PropTypes.func,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  isBeforeStart: PropTypes.bool,
+  isFitnessTestDay: PropTypes.bool,
+  isAfterToday: PropTypes.bool
 };
 
 export default Day;

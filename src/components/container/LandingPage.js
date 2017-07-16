@@ -9,9 +9,11 @@ import History from '../presentational/History';
 
 const mapStateToProps = (state, ownProps) => {
   const program = state.entities.program[state.entities.user[state.user].program];
-  const lastHistoryDate = program.workouts.reduce((lastWorkoutDate, workout) => {
-    return lastWorkoutDate;
-  }, new Date());
+  const test = state.entities.test[program.test];
+
+  const lastHistoryDate = new Date(state.entities.workout[program.workouts[program.workouts.length - 1]].date);
+  lastHistoryDate.setDate(lastHistoryDate.getDate() + 3);
+  console.log(lastHistoryDate);
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -21,7 +23,8 @@ const mapStateToProps = (state, ownProps) => {
     program,
     beginDate: new Date(new Date(program.created).setDate(program.created.getDate() - program.created.getDay())),
     endDate: new Date(new Date(lastHistoryDate).setDate(lastHistoryDate.getDate() + (6 - lastHistoryDate.getDay()))),
-    today
+    today,
+    test
   };
 };
 
@@ -44,7 +47,7 @@ const LandingPage = props =>
           endDate={props.endDate} // this is the end of the week of the last history record
           createdDate={props.program.created}
           today={props.today}
-          fitnessTestDate={props.program.created}
+          fitnessTestDate={props.test.date}
           programDays={props.program.selectedDays}
           programHistory={[]}
         />

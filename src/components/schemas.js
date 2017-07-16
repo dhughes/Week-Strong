@@ -11,11 +11,47 @@ const goal = new schema.Entity('goal', {
 });
 const goals = [goal];
 
+// schema for fitness test rounds
+const testRound = new schema.Entity('testRound');
+const testRounds = [testRound];
+
+// schema for fitness test
+const test = new schema.Entity(
+  'test',
+  {
+    rounds: testRounds
+  },
+  {
+    processStrategy: (value, parent, key) => {
+      return merge({}, value, { date: new Date(`${value.date} 0:0:0:`) });
+    }
+  }
+);
+// schema for workout rounds
+const workoutRound = new schema.Entity('workoutRound');
+const workoutRounds = [workoutRound];
+
+// schema for workout
+const workout = new schema.Entity(
+  'workout',
+  {
+    rounds: workoutRounds
+  },
+  {
+    processStrategy: (value, parent, key) => {
+      return merge({}, value, { date: new Date(`${value.date} 0:0:0:`) });
+    }
+  }
+);
+const workouts = [workout];
+
 // schema for program
 const program = new schema.Entity(
   'program',
   {
-    goals: goals
+    goals: goals,
+    test: test,
+    workouts: workouts
   },
   {
     processStrategy: (value, parent, key) => {
