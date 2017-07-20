@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import Day, { days, months } from './Day';
+import Day, { days } from './Day';
 import Week from './styled/Week';
 import Weeks from './styled/Weeks';
-import { Hbox, Vbox } from './Box';
+import { Hbox } from './Box';
 
 function enumerateDates(beginDate, endDate) {
   const dates = [];
@@ -49,38 +49,45 @@ class History extends Component {
         <div className="historySpacer">&nbsp;</div>
         {enumerateWeeks(this.props.beginDate, this.props.endDate).map((week, index) =>
           <Week key={index} deepRef={week => (this.week[index] = week)}>
-            {/* <div>
+            <div>
               Week {index + 1}
-            </div> */}
+            </div>
             <Hbox justifyContent="space-between">
               {week.map((date, index) => {
-                const inProgram = date >= this.props.fitnessTestDate;
+                const inProgram = date > this.props.fitnessTestDate;
                 const isBeforeStart = date <= this.props.fitnessTestDate;
                 const isAfterToday = date > this.props.today;
-                const isWorkoutDay = inProgram && this.props.programDays.indexOf(date.getDay()) !== -1;
                 const workedOut =
                   this.props.programHistory.find(historyDate => historyDate.getTime() === date.getTime()) !== undefined;
+
+                // if we worked out then we need to reset the missed workout tracker
+                const isWorkoutDay = inProgram && this.props.programDays.indexOf(date.getDay()) !== -1;
+
+                const isMakeupDay = !isWorkoutDay && workedOut;
+
+                // was thoday a workout day that was missed?
                 const missed = inProgram && isWorkoutDay && date.getTime() < this.props.today.getTime() && !workedOut;
                 const isFitnessTestDay = date.getTime() === this.props.fitnessTestDate.getTime();
 
                 return (
-                  <Vbox>
-                    <Day
-                      key={index}
-                      day={days[date.getDay()]}
-                      inProgram={inProgram}
-                      isWorkoutDay={isWorkoutDay}
-                      workedOut={workedOut}
-                      missed={missed}
-                      isToday={date.getTime() === this.props.today.getTime()}
-                      isBeforeStart={isBeforeStart}
-                      isFitnessTestDay={isFitnessTestDay}
-                      isAfterToday={isAfterToday}
-                    />
-                    <span className="date" key={`span${index}`}>
+                  // <Vbox>
+                  <Day
+                    key={index}
+                    day={days[date.getDay()]}
+                    inProgram={inProgram}
+                    isWorkoutDay={isWorkoutDay}
+                    isMakeupDay={isMakeupDay}
+                    workedOut={workedOut}
+                    missed={missed}
+                    isToday={date.getTime() === this.props.today.getTime()}
+                    isBeforeStart={isBeforeStart}
+                    isFitnessTestDay={isFitnessTestDay}
+                    isAfterToday={isAfterToday}
+                  />
+                  /* <span className="date" key={`span${index}`}>
                       {months[date.getMonth()].substr(0, 3)} {date.getDate()}
                     </span>
-                  </Vbox>
+                  </Vbox> */
                 );
               })}
             </Hbox>

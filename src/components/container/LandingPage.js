@@ -11,9 +11,12 @@ const mapStateToProps = (state, ownProps) => {
   const program = state.entities.program[state.entities.user[state.user].program];
   const test = state.entities.test[program.test];
 
-  const lastHistoryDate = new Date(state.entities.workout[program.workouts[program.workouts.length - 1]].date);
-  lastHistoryDate.setDate(lastHistoryDate.getDate() + 3);
-  console.log(lastHistoryDate);
+  // the history value might be of use in the future. perhaps touching a workout date might give you a breakdown of that workout?
+  const history = program.workouts.map(workoutId => state.entities.workout[workoutId]);
+  const historyDates = history.map(day => day.date);
+
+  // const lastHistoryDate = new Date(state.entities.workout[program.workouts[program.workouts.length - 1]].date);
+  // lastHistoryDate.setDate(lastHistoryDate.getDate() + 3);
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -21,8 +24,9 @@ const mapStateToProps = (state, ownProps) => {
   return {
     user: state.entities.user[state.user],
     program,
+    historyDates,
     beginDate: new Date(new Date(program.created).setDate(program.created.getDate() - program.created.getDay())),
-    endDate: new Date(new Date(lastHistoryDate).setDate(lastHistoryDate.getDate() + (6 - lastHistoryDate.getDay()))),
+    endDate: new Date(new Date(today).setDate(today.getDate() + (6 - today.getDay()))),
     today,
     test
   };
@@ -49,12 +53,12 @@ const LandingPage = props =>
           today={props.today}
           fitnessTestDate={props.test.date}
           programDays={props.program.selectedDays}
-          programHistory={[]}
+          programHistory={props.historyDates}
         />
       </Vbox>
 
       <div>
-        <h3>It's a workout day!</h3>
+        <h3>More info goes here!</h3>
         <p>We'll need to return to this later.</p>
       </div>
 

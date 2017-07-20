@@ -11,7 +11,7 @@ const DayBox = styled.div`
   border-radius: 0.3em;
 
   color: ${theme.primaryText};
-  border: 1px solid ${theme.primaryText};
+  border: 2px solid ${theme.primaryText};
   background-color: ${theme.background};
 
   line-height: 2.5rem;
@@ -22,6 +22,7 @@ const DayBox = styled.div`
   &.notInProgram,
   &.afterToday {
     opacity: 0.25;
+    border-width: 1px;
   }
 
   &.workoutDay {
@@ -54,7 +55,11 @@ const DayBox = styled.div`
 
   &.beforeStart {
     border-width: 2px;
-    border-style: dotted;
+    border-style: dashed;
+  }
+
+  &.makeupDay {
+    background-color: ${theme.positive}!important;
   }
 `;
 
@@ -79,6 +84,7 @@ const Day = props =>
     className={`
       ${!props.inProgram ? 'notInProgram' : ''}
       ${props.isWorkoutDay ? 'workoutDay' : ''}
+      ${props.isMakeupDay ? 'makeupDay' : ''}
       ${props.workedOut ? 'workedOut' : ''}
       ${props.missed ? 'missed' : ''}
       ${props.isToday ? 'today' : ''}
@@ -101,6 +107,7 @@ Day.defaultProps = {
 Day.propTypes = {
   inProgram: PropTypes.bool,
   isWorkoutDay: PropTypes.bool,
+  isMakeupDay: PropTypes.bool,
   workedOut: PropTypes.bool,
   missed: PropTypes.bool,
   isToday: PropTypes.bool,
