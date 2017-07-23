@@ -1,11 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import bs from 'binary-search';
 import { Vbox } from '../presentational/Box';
 import Body from '../presentational/styled/Body';
 import NavigationBar from '../presentational/NavigationBar';
 import { Pencil, Settings } from '../presentational/Icon';
 import History from '../presentational/History';
+import WorkoutDay from '../presentational/WorkoutDay';
+import RestDay from '../presentational/RestDay';
 
 const mapStateToProps = (state, ownProps) => {
   const program = state.entities.program[state.entities.user[state.user].program];
@@ -15,11 +18,20 @@ const mapStateToProps = (state, ownProps) => {
   const history = program.workouts.map(workoutId => state.entities.workout[workoutId]);
   const historyDates = history.map(day => day.date);
 
-  // const lastHistoryDate = new Date(state.entities.workout[program.workouts[program.workouts.length - 1]].date);
-  // lastHistoryDate.setDate(lastHistoryDate.getDate() + 3);
-
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+
+  // is today a workout day?
+  let nextWorkoutDay;
+  if (program.selectedDays.indexOf(today.getDay()) !== -1) {
+    nextWorkoutDay = today;
+  } else {
+    const nextDay = program.selectedDays[bs(program.selectedDays, today.getDay(), (a, b) => a - b) * -1 - 1];
+    console.log(nextDay);
+    nextWorkoutDay = new Date(2018, 1, 1);
+  }
+  // if so, have I worked out yet?
+  // if not, roll forward until we find the next workout day
 
   return {
     user: state.entities.user[state.user],
@@ -28,7 +40,8 @@ const mapStateToProps = (state, ownProps) => {
     beginDate: new Date(new Date(program.created).setDate(program.created.getDate() - program.created.getDay())),
     endDate: new Date(new Date(today).setDate(today.getDate() + (6 - today.getDay()))),
     today,
-    test
+    test,
+    nextWorkoutDay
   };
 };
 
@@ -57,10 +70,9 @@ const LandingPage = props =>
         />
       </Vbox>
 
-      <div>
-        <h3>More info goes here!</h3>
-        <p>We'll need to return to this later.</p>
-      </div>
+      {props.nextWorkoutDay.getTime() === props.today.getTime()
+        ? <WorkoutDay />
+        : <RestDay nextWorkoutDay={props.nextWorkoutDay} />}
 
       <Vbox>
         <p>Stats go here</p>
