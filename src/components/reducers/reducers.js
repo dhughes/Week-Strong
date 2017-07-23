@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-
 import ui from './reducers.ui.js';
 import merge from 'lodash/merge';
 import { RECEIVE_EXERCISES, RECEIVE_NEW_USER, LOGIN_SUCCEEDED } from '../actions/actions';
@@ -17,15 +16,7 @@ function user(state = null, action) {
   }
 }
 
-function entities(
-  state = {
-    user: [],
-    exercise: [],
-    goal: [],
-    program: []
-  },
-  action
-) {
+function entities(state = {}, action) {
   switch (action.type) {
     case LOGIN_SUCCEEDED:
     case RECEIVE_NEW_USER:

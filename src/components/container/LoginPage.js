@@ -12,7 +12,6 @@ import SectionBreak from '../presentational/styled/SectionBreak';
 import Input from '../presentational/Input';
 import HighlightedMessage from '../presentational/styled/HighlightedMessage';
 import { editLoginPageFiled, login } from '../actions/actions';
-//import theme from '../../util/theme';
 
 const TextLink = styled(Link)`
   color: currentColor;
@@ -22,6 +21,8 @@ const TextLink = styled(Link)`
 const mapStateToProps = (state, ownProps) => {
   // This doesn't belong here, but it works. It's good for at least development-time
   //if (Object.keys(state.ui.createProgram.exercises).length === 0) history.push('/CreateProgram');
+
+  console.log('state!!!', state);
 
   return {
     login: state.ui.loginPage,

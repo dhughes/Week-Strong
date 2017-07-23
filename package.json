@@ -16,6 +16,7 @@
     "react-router-dom": "^4.1.1",
     "react-router-redux": "next",
     "redux": "^3.7.0",
+    "redux-localstorage": "rc",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "sinon": "^2.3.2",

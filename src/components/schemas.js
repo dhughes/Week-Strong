@@ -4,17 +4,17 @@ import { LocalDate } from 'js-joda';
 
 // schema for exercises
 const exercise = new schema.Entity('exercise');
-const exercises = [exercise];
+const exercises = new schema.Array(exercise);
 
 // schema for goal
 const goal = new schema.Entity('goal', {
   exercise: exercise
 });
-const goals = [goal];
+const goals = new schema.Array(goal);
 
 // schema for fitness test rounds
 const testRound = new schema.Entity('testRound');
-const testRounds = [testRound];
+const testRounds = new schema.Array(testRound);
 
 // schema for fitness test
 const test = new schema.Entity(
@@ -30,7 +30,7 @@ const test = new schema.Entity(
 );
 // schema for workout rounds
 const workoutRound = new schema.Entity('workoutRound');
-const workoutRounds = [workoutRound];
+const workoutRounds = new schema.Array(workoutRound);
 
 // schema for workout
 const workout = new schema.Entity(
@@ -44,7 +44,7 @@ const workout = new schema.Entity(
     }
   }
 );
-const workouts = [workout];
+const workouts = new schema.Array(workout);
 
 // schema for program
 const program = new schema.Entity(
