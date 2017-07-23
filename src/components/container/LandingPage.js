@@ -26,7 +26,10 @@ const mapStateToProps = (state, ownProps) => {
   if (program.selectedDays.indexOf(today.getDay()) !== -1) {
     nextWorkoutDay = today;
   } else {
+    // This is a mess of hard to understand code.
+    // Also the variable names kinda suck.
     const nextDay = program.selectedDays[bs(program.selectedDays, today.getDay(), (a, b) => a - b) * -1 - 1];
+    new Date(new Date(today).setDate(today.getDate() + (6 - nextDay)));
     console.log(nextDay);
     nextWorkoutDay = new Date(2018, 1, 1);
   }
