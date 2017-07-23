@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import bs from 'binary-search';
+import { LocalDate, TemporalAdjusters, DayOfWeek } from 'js-joda';
 import { Vbox } from '../presentational/Box';
 import Body from '../presentational/styled/Body';
 import NavigationBar from '../presentational/NavigationBar';
@@ -14,37 +14,44 @@ const mapStateToProps = (state, ownProps) => {
   const program = state.entities.program[state.entities.user[state.user].program];
   const test = state.entities.test[program.test];
 
-  // the history value might be of use in the future. perhaps touching a workout date might give you a breakdown of that workout?
+  // the history value might be of use in the future.
+  // perhaps touching a workout date might give you a breakdown of that workout?
   const history = program.workouts.map(workoutId => state.entities.workout[workoutId]);
   const historyDates = history.map(day => day.date);
 
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  // get today
+  const today = LocalDate.now();
 
-  // is today a workout day?
-  let nextWorkoutDay;
-  if (program.selectedDays.indexOf(today.getDay()) !== -1) {
-    nextWorkoutDay = today;
-  } else {
-    // This is a mess of hard to understand code.
-    // Also the variable names kinda suck.
-    const nextDay = program.selectedDays[bs(program.selectedDays, today.getDay(), (a, b) => a - b) * -1 - 1];
-    new Date(new Date(today).setDate(today.getDate() + (6 - nextDay)));
-    console.log(nextDay);
-    nextWorkoutDay = new Date(2018, 1, 1);
-  }
-  // if so, have I worked out yet?
-  // if not, roll forward until we find the next workout day
+  // map the selectedDays to the next instance of their dates
+  const nextWorkoutDates = program.selectedDays
+    // convert the selected days to actual dates of the next workout
+    .map(day => today.with(TemporalAdjusters.next(DayOfWeek.of(day))))
+    // sort the dates
+    .sort((a, b) => a.compareTo(b));
+
+  // did I workout today?
+  const workedOutToday = history[history.length - 1].date.equals(today);
+
+  // get the next workout date (including today)
+  // todo: take into account whether or not we've worked out today.
+  const nextWorkoutDay =
+    program.selectedDays.indexOf(today.dayOfWeek().value()) !== -1 && !workedOutToday ? today : nextWorkoutDates[0];
 
   return {
     user: state.entities.user[state.user],
     program,
     historyDates,
-    beginDate: new Date(new Date(program.created).setDate(program.created.getDate() - program.created.getDay())),
-    endDate: new Date(new Date(today).setDate(today.getDate() + (6 - today.getDay()))),
+    // get the sunday of or before the date created
+    beginDate:
+      program.created.dayOfWeek().value() === 7
+        ? program.created
+        : program.created.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY)),
+    // get the saturday of or after today
+    endDate: today.dayOfWeek().value() === 6 ? today : today.with(TemporalAdjusters.next(DayOfWeek.SATURDAY)),
     today,
     test,
-    nextWorkoutDay
+    nextWorkoutDay,
+    workedOutToday
   };
 };
 
@@ -73,9 +80,9 @@ const LandingPage = props =>
         />
       </Vbox>
 
-      {props.nextWorkoutDay.getTime() === props.today.getTime()
+      {props.nextWorkoutDay.equals(props.today) && !props.workedOutToday
         ? <WorkoutDay />
-        : <RestDay nextWorkoutDay={props.nextWorkoutDay} />}
+        : <RestDay done={props.workedOutToday} nextWorkoutDay={props.nextWorkoutDay} />}
 
       <Vbox>
         <p>Stats go here</p>

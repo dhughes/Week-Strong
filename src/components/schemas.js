@@ -1,5 +1,6 @@
 import { schema } from 'normalizr';
 import merge from 'lodash/merge';
+import { LocalDate } from 'js-joda';
 
 // schema for exercises
 const exercise = new schema.Entity('exercise');
@@ -23,7 +24,7 @@ const test = new schema.Entity(
   },
   {
     processStrategy: (value, parent, key) => {
-      return merge({}, value, { date: new Date(`${value.date} 0:0:0:`) });
+      return merge({}, value, { date: LocalDate.parse(`${value.date}`) });
     }
   }
 );
@@ -39,7 +40,7 @@ const workout = new schema.Entity(
   },
   {
     processStrategy: (value, parent, key) => {
-      return merge({}, value, { date: new Date(`${value.date} 0:0:0:`) });
+      return merge({}, value, { date: LocalDate.parse(`${value.date}`) });
     }
   }
 );
@@ -58,7 +59,7 @@ const program = new schema.Entity(
       // goals don't have their own ID. This generates a unique id for the goal
       // based on the program's id and the exercise's id.
       const goals = value.goals.map(goal => merge({}, goal, { id: `${value.id}-${goal.exercise.id}` }));
-      return merge({}, value, { goals, created: new Date(`${value.created} 0:0:0:`) });
+      return merge({}, value, { goals, created: LocalDate.parse(`${value.created}`) });
     }
   }
 );

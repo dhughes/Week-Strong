@@ -1134,10 +1134,6 @@ binary-extensions@^1.0.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-1.8.0.tgz#48ec8d16df4377eae5fa5884682480af4d95c774"
 
-binary-search@^1.3.2:
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/binary-search/-/binary-search-1.3.2.tgz#88c9b7bd2b7221d352da78ec887f5af2549e4de2"
-
 block-stream@*:
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/block-stream/-/block-stream-0.0.9.tgz#13ebfe778a03205cfe03751481ebb4b3300c126a"
@@ -4015,6 +4011,10 @@ jodid25519@^1.0.0:
 js-base64@^2.1.9:
   version "2.1.9"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.1.9.tgz#f0e80ae039a4bd654b5f281fc93f04a914a7fcce"
+
+js-joda@^1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/js-joda/-/js-joda-1.5.2.tgz#c19a61e6ab10968d7fe99aeb9a5a31281212a3bd"
 
 js-tokens@^3.0.0:
   version "3.0.1"
