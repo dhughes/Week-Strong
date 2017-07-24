@@ -3,6 +3,13 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import theme from '../../util/theme';
 
+/*
+  clock-start = day the fitness test is taken
+
+
+
+ */
+
 const DayBox = styled.div`
   component: DayBox;
   text-align: center;
