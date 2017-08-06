@@ -36,7 +36,9 @@ class LandingPage extends Component {
               : 'Today is a rest day!'}
           </h3>
 
-          <p>Come back on {nextDay} the {nextDate}.</p>
+          <p>
+            Come back on {nextDay} the {nextDate}.
+          </p>
         </div>
       );
     }
@@ -53,7 +55,9 @@ class LandingPage extends Component {
 
         <Body justifyContent="space-between">
           <Vbox>
-            <H2>Welcome back, {this.props.user.name.split(' ')[0]}</H2>
+            <H2>
+              Welcome back, {this.props.user.name.split(' ')[0]}
+            </H2>
 
             <Schedule
               history={this.props.history}
@@ -75,7 +79,6 @@ class LandingPage extends Component {
             />
             <ProgressBar progress={this.props.program.completedDay / this.props.program.days * 100} />
           </Vbox>
-
         </Body>
       </Vbox>
     );

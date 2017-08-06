@@ -14,8 +14,20 @@ import {
   VALIDATED_CREATE_PROFILE_FIELD,
   EDIT_LOGIN_PAGE_FIELD,
   LOGIN_FAILED,
-  LOGIN_SUCCEEDED
+  LOGIN_SUCCEEDED,
+  RECEIVE_PROGRAM
 } from '../actions/actions';
+
+// this relates to the user's landing page
+// we're assuming that we will be fetching the user's latest program as soon as the landing page loads.
+function landingPage(state = { isFetching: true }, action) {
+  switch (action.type) {
+    case RECEIVE_PROGRAM:
+      return merge({}, state, { isFetching: false });
+    default:
+      return state;
+  }
+}
 
 // this relates to the login page
 function loginPage(state = { email: '', password: '', isFetching: false, loginFailed: false }, action) {
@@ -163,4 +175,4 @@ function createProfile(
   }
 }
 
-export default combineReducers({ exerciseList, createProgram, exercise, createProfile, loginPage });
+export default combineReducers({ exerciseList, createProgram, exercise, createProfile, loginPage, landingPage });

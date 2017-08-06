@@ -29,14 +29,3 @@ if (module.hot) {
     );
   });
 }
-
-// const renderApp = store => {
-//   ReactDOM.render(<App store={store} />, document.getElementById('root'));
-// };
-// renderApp(configureStore());
-//
-// if (module.hot) {
-//   module.hot.accept('./components/App', () => {
-//     renderApp(configureStore());
-//   });
-// }

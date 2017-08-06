@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import { normalize } from 'normalizr';
 import { push } from 'react-router-redux';
-import { exercises as exercisesSchema, user as userSchema } from '../schemas';
+import { exercises as exercisesSchema, user as userSchema, program as programSchema } from '../schemas';
 
 export const REQUEST_EXERCISES = 'REQUEST_EXERCISES';
 export const RECEIVE_EXERCISES = 'RECEIVE_EXERCISES';
@@ -26,6 +26,8 @@ export const RECEIVE_NEW_USER = 'RECEIVE_NEW_USER';
 export const EDIT_LOGIN_PAGE_FIELD = 'EDIT_LOGIN_PAGE_FIELD';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
 export const LOGIN_SUCCEEDED = 'LOGIN_SUCCEEDED';
+
+export const RECEIVE_PROGRAM = 'RECEIVE_PROGRAM';
 
 function requestExercises() {
   return { type: REQUEST_EXERCISES };
@@ -180,19 +182,12 @@ export function login(email, password) {
       response => {
         if (response.status === 200) {
           // the user is authenticated!
-          response
-            .json()
-            .then(data => {
-              console.log(data);
-              return data;
-            })
-            .then(data => normalize(data, userSchema))
-            .then(user => {
-              // update the ui
-              dispatch(loginSucceeded(user));
-              // redirect to the landing page
-              dispatch(push('/'));
-            });
+          response.json().then(data => {
+            // update the our normalized data
+            dispatch(loginSucceeded(normalize(data, userSchema)));
+            // redirect to the landing page
+            dispatch(push('/'));
+          });
         } else {
           dispatch(loginFailed());
           console.log('Received ' + response.status + ' from project sync.');
@@ -210,4 +205,35 @@ function loginFailed() {
 
 function loginSucceeded(user) {
   return { type: LOGIN_SUCCEEDED, user };
+}
+
+export function loadProgram(userId) {
+  return function(dispatch) {
+    //dispatch(loadingProgram());
+
+    fetch(`http://localhost:8080/user/${userId}/program/latest`).then(
+      response => {
+        if (response.status === 200) {
+          response
+            .json()
+            // normalize the project
+            .then(data => normalize(data, programSchema))
+            // dispatch appropriate events
+            .then(data => {
+              dispatch(receivedProgram(data));
+              // dispatch(push('/'));
+            });
+        } else {
+          // todo: handle situations where the user isn't created successfully
+          console.log(`Received ${response.status} when posting new user.`);
+        }
+      },
+      // todo: find a way to handle this
+      error => console.log('An error occured saving a new user profile.', error)
+    );
+  };
+}
+
+function receivedProgram(program) {
+  return { type: RECEIVE_PROGRAM, program };
 }
