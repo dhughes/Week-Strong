@@ -47,7 +47,15 @@ const workout = new schema.Entity(
 const workouts = new schema.Array(workout);
 
 // schema for events
-const event = new schema.Entity('event');
+const event = new schema.Entity(
+  'event',
+  {},
+  {
+    processStrategy: (value, parent, key) => {
+      return merge({}, value, { date: LocalDate.parse(`${value.date}`) });
+    }
+  }
+);
 const events = new schema.Array(event);
 
 // schema for program
@@ -65,7 +73,12 @@ const program = new schema.Entity(
       // based on the program's id and the exercise's id.
       const goals = value.goals.map(goal => merge({}, goal, { id: `${value.id}-${goal.exercise.id}` }));
       const history = value.history.map(event => merge({}, event, { id: `${value.id}-${event.date}` }));
-      return merge({}, value, { goals, history, created: LocalDate.parse(`${value.created}`) });
+      return merge({}, value, {
+        goals,
+        history,
+        created: LocalDate.parse(`${value.created}`),
+        nextWorkoutDate: LocalDate.parse(`${value.nextWorkoutDate}`)
+      });
     }
   }
 );

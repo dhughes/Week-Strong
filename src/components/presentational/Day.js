@@ -1,14 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { LocalDate } from 'js-joda';
 import theme from '../../util/theme';
-
-/*
-  clock-start = day the fitness test is taken
-
-
-
- */
+import { PlayCircle, Checkmark, Close } from './Icon';
 
 const DayBox = styled.div`
   component: DayBox;
@@ -26,23 +21,13 @@ const DayBox = styled.div`
   padding: 0;
   margin: 0.25rem 0.25rem 0.25rem 0.25rem;
 
-  &.notInProgram,
-  &.afterToday {
-    opacity: 0.25;
-    border-width: 1px;
-  }
-
   &.workoutDay {
     background-color: ${theme.positive.lighten(1.25)};
   }
 
-  &.workedOut {
+  &.workout {
     background-color: ${theme.positive};
     color: ${theme.primaryText.negate()};
-  }
-
-  &.fitnessTestDay {
-    opacity: 1;
   }
 
   &.today {
@@ -52,21 +37,16 @@ const DayBox = styled.div`
     z-index: 1;
   }
 
-  &.missed {
+  &.skip {
     background-color: ${theme.negative.lighten(1)};
+  }
+
+  &.null {
+    opacity: 0.5;
   }
 
   &.disabled {
     border: 1px solid ${theme.primaryText.fade(0.75)};
-  }
-
-  &.beforeStart {
-    border-width: 2px;
-    border-style: dashed;
-  }
-
-  &.makeupDay {
-    background-color: ${theme.positive}!important;
   }
 `;
 
@@ -89,21 +69,16 @@ export const months = [
 const Day = props =>
   <DayBox
     className={`
-      ${!props.inProgram ? 'notInProgram' : ''}
-      ${props.isWorkoutDay ? 'workoutDay' : ''}
-      ${props.isMakeupDay ? 'makeupDay' : ''}
-      ${props.workedOut ? 'workedOut' : ''}
-      ${props.missed ? 'missed' : ''}
-      ${props.isToday ? 'today' : ''}
-      ${props.isBeforeStart ? 'beforeStart' : ''}
-      ${props.isFitnessTestDay ? 'fitnessTestDay' : ''}
-      ${props.isAfterToday ? 'afterToday' : ''}
-      ${props.disabled ? 'disabled' : ''}`}
-    data-value={days.indexOf(props.day)}
-    title={props.day}
+      ${props.event.type ? props.event.type.toLowerCase() : 'null'}
+      ${props.event.inProgram ? '' : 'notInProgram'}
+      ${props.event.date.compareTo(LocalDate.now()) === 0 ? 'today' : ''}
+      `}
+    title={props.event.date.dayOfWeek()}
     {...props}
   >
-    {props.day.substr(0, 1)}
+    {props.event.type === 'TEST' ? <PlayCircle /> : null}
+    {props.event.type === 'WORKOUT' ? <Checkmark /> : null}
+    {props.event.type === 'SKIP' ? <Close /> : null}
   </DayBox>;
 
 Day.defaultProps = {
@@ -112,18 +87,7 @@ Day.defaultProps = {
 };
 
 Day.propTypes = {
-  inProgram: PropTypes.bool,
-  isWorkoutDay: PropTypes.bool,
-  isMakeupDay: PropTypes.bool,
-  workedOut: PropTypes.bool,
-  missed: PropTypes.bool,
-  isToday: PropTypes.bool,
-  day: PropTypes.oneOf(days),
-  onClick: PropTypes.func,
-  disabled: PropTypes.bool,
-  isBeforeStart: PropTypes.bool,
-  isFitnessTestDay: PropTypes.bool,
-  isAfterToday: PropTypes.bool
+  event: PropTypes.object
 };
 
 export default Day;

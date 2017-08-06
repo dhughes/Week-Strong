@@ -48,6 +48,7 @@ function jodaMerge(initialState, persistedState) {
     .map(entities => {
       switch (entities.key) {
         case 'workout':
+        case 'event':
         case 'test':
           return {
             key: entities.key,
@@ -56,7 +57,8 @@ function jodaMerge(initialState, persistedState) {
         case 'program':
           return {
             key: entities.key,
-            entities: translateDates(entities.entities, 'created', 'id')
+            // I need to find a better way to do this. I don't like nexting these translations as I've done.
+            entities: translateDates(translateDates(entities.entities, 'nextWorkoutDate', 'id'), 'created', 'id')
           };
         default:
           return entities;
